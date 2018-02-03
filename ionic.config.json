@@ -1,0 +1,8 @@
+{
+  "name": "MoneroGives",
+  "app_id": "6062447a",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
