@@ -52,11 +52,9 @@
   }
 
   .toolbar-background {
-    background: linear-gradient(#000000, #141414);
+    background-color: color($blacks, darkest);
 }
-#page-title {
-  width: calc(100% - 185px);
-}
+
 .toolbar-title {
   color: white;
   font-weight: 700;
@@ -67,28 +65,26 @@
   display: block;
 }
 
-ion-menu ion-list {
-  .sidemenu-service-icon {
-    width: 24px;
-    height: 24px;
-    margin-top: -2px;
-    position: absolute;
-  }
-
-  .sidemenu-channel-title {
-    padding-left: 30px;
+.split-pane.split-pane-visible > .split-pane-side {
+  max-width: 300px;
+}
+ion-menu {
+ion-title {
+  height: 45px;
+  text-align: center;
+}
+ion-content.content {
+  ion-list {
+    .item.item-block {
+      color: color($blacks, light);
+    }
   }
 }
+}
 
-ion-menu {
-  ion-title {
-    height: 45px;
-    text-align: center;
-  }
-
-  .toolbar-background {
-    background: rgba(0,0,0,0.8);
-  }
+ion-card.card {
+  margin: 0;
+  width: 100%;
 }
 
 .toolbar-content {
@@ -97,36 +93,16 @@ ion-menu {
   left: 0;
   height: 45px;
 
-  #channel-icon {
-    left: 50px;
-    position: absolute;
-  }
-
   .page-title-icon {
     left: 55px;
     position: absolute;
     top: 8px;
   }
 
-  #page-title {
-    position: absolute;
-    left: 90px;
-    top: 10px;
-  }
 }
-ion-navbar {
-  .bar-buttons ion-icon {
-    transition: all 0.333s ease-in-out;
-    color: white !important;
-  }
 
-  .bar-buttons:hover ion-icon {
-    color: rgba(255,255,255,0.7) !important;
-  }
-
-  .bar-buttons:active ion-icon {
-    color: rgba(255,255,255,0.4) !important;
-  }
+.ion-page .content {
+  margin-top: 56px;
 }
 
 .full-table {

@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ViewController } from 'ionic-angular';
 
 import { PAGES } from '../../constants/pages';
 
 @Injectable()
-export class LuzProvider {
+export class Luz {
 
-  constructor(public view: ViewController) {}
+  constructor() {}
 
-  getPageParams() {
-    alert(this.view);
-    let slug ='';
+  static getPageParams(slug) {
     for(const page of PAGES.LIST) {
       if(page.slug === slug) {
         return page;

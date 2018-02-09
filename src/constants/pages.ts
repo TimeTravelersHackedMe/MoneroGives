@@ -8,42 +8,42 @@ export const PAGES = {
         {
             title: 'Dashboard',
             slug: 'dashboard',
-            icon: 'home'
+            icon: 'stats'
         },
         {
             title: 'Blocks',
             slug: 'blocks',
-            icon: 'home'
+            icon: 'grid'
         },
         {
             title: 'Payments',
             slug: 'payments',
-            icon: 'home'
+            icon: 'cash'
         },
         {
             title: 'Ports',
             slug: 'ports',
-            icon: 'home'
+            icon: 'flash'
         },
         {
             title: 'Network',
             slug: 'network',
-            icon: 'home'
+            icon: 'git-network'
         },
         {
             title: 'Support',
             slug: 'support',
-            icon: 'home'
+            icon: 'chatboxes'
         },
         {
             title: 'Getting Started',
             slug: 'getting-started',
-            icon: 'home'
+            icon: 'play'
         },
         {
             title: 'FAQ',
             slug: 'faq',
-            icon: 'home'
+            icon: 'help-circle'
         }
     ]
 }

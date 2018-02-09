@@ -1,3 +1,30 @@
+$title-color: #fff;
+
 nav-bar {
 
+    .toolbar-content {
+        display: table;
+        margin-left: 60px;
+    }
+
+    @media(min-width: map-get($grid-breakpoints, lg)) {
+        .toolbar-content {
+            margin-left: 24px;
+        }
+    }
+
+    .page-icon {
+        width: 14px;
+        height: 45px;
+    }
+
+    ion-icon {
+        font-size: 2.4rem;
+        color: $title-color;
+    }
+
+    .toolbar-title {
+        color: $title-color;
+    }
 }
+

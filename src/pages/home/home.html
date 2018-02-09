@@ -1,8 +1,36 @@
 <nav-bar [page]="page"></nav-bar>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-lg-4>
+        <ion-card color="primary">
+          <ion-card-header>
+            Network Hash Rate
+          </ion-card-header>
+          <ion-card-content>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-12 col-sm-6 col-lg-4>
+        <ion-card color="primary">
+          <ion-card-header>
+            Pool Hash Rate
+          </ion-card-header>
+          <ion-card-content>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-12 col-sm-6 col-lg-4>
+        <ion-card color="secondary">
+          <ion-card-header>
+              Miners Connected
+          </ion-card-header>
+          <ion-card-content>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

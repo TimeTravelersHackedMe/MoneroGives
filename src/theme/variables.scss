@@ -41,6 +41,13 @@ $colors: (
   dark:       #222
 );
 
+$blacks: (
+  darkest: #000000,
+  dark: #212121,
+  medium: #303030,
+  light: #424242
+);
+
 
 // App iOS Variables
 // --------------------------------------------------
@@ -79,10 +86,3 @@ $colors: (
 // http://ionicframework.com/docs/ionicons/
 
 @import "ionic.ionicons";
-
-
-// Fonts
-// --------------------------------------------------
-
-@import "roboto";
-@import "noto-sans";

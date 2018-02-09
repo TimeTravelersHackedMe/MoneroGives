@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, ViewController } from 'ionic-angular';
+import { IonicPage, ViewController } from 'ionic-angular';
 
-import { LuzProvider } from '../../providers/luz/luz';
+import { Luz } from '../../providers/luz/luz';
 
 @IonicPage({
   name: 'ports',
@@ -14,9 +14,8 @@ import { LuzProvider } from '../../providers/luz/luz';
 export class PortsPage {
   page;
 
-  constructor(public luz: LuzProvider, public nav: NavController, private ViewController: ViewController) {
-    alert(this.ViewController.name);
-    //this.page = luz.getPageParams();
+  constructor(private view: ViewController) {
+    this.page = Luz.getPageParams(this.view.id);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, ViewController } from 'ionic-angular';
 
-import { LuzProvider } from '../../providers/luz/luz';
+import { Luz } from '../../providers/luz/luz';
 
 @IonicPage({
   name: 'faq',
@@ -14,8 +14,8 @@ import { LuzProvider } from '../../providers/luz/luz';
 export class FaqPage {
   page;
 
-  constructor() {
-    this.page = LuzProvider.getPageParams(document.location.hash);
+  constructor(private view: ViewController) {
+    this.page = Luz.getPageParams(this.view.id);
   }
 
 }
