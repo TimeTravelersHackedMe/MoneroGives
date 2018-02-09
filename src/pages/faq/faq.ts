@@ -4,18 +4,18 @@ import { IonicPage } from 'ionic-angular';
 import { LuzProvider } from '../../providers/luz/luz';
 
 @IonicPage({
-  name: 'home',
-  segment: 'home'
+  name: 'faq',
+  segment: 'faq'
 })
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-faq',
+  templateUrl: 'faq.html',
 })
-export class HomePage {
+export class FaqPage {
   page;
 
-  constructor(public luz: LuzProvider) {
-    this.page = luz.getPageParams();
+  constructor() {
+    this.page = LuzProvider.getPageParams(document.location.hash);
   }
 
 }

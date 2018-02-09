@@ -14,3 +14,156 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/fonts/montserrat-v10-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local('Montserrat Regular'), local('Montserrat-Regular'),
+         url('../assets/fonts/montserrat-v10-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../assets/fonts/montserrat-v10-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../assets/fonts/montserrat-v10-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('../assets/fonts/montserrat-v10-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../assets/fonts/montserrat-v10-latin-regular.svg#Montserrat') format('svg'); /* Legacy iOS */
+  }
+  /* montserrat-700 - latin */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../assets/fonts/montserrat-v10-latin-700.eot'); /* IE9 Compat Modes */
+    src: local('Montserrat Bold'), local('Montserrat-Bold'),
+         url('../assets/fonts/montserrat-v10-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../assets/fonts/montserrat-v10-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../assets/fonts/montserrat-v10-latin-700.woff') format('woff'), /* Modern Browsers */
+         url('../assets/fonts/montserrat-v10-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../assets/fonts/montserrat-v10-latin-700.svg#Montserrat') format('svg'); /* Legacy iOS */
+  }
+
+  * {
+    font-family: 'Montserrat';
+    font-weight: 400;
+  }
+
+  .middle {
+    vertical-align: middle;
+    display: table-cell;
+  }
+
+  .toolbar-background {
+    background: linear-gradient(#000000, #141414);
+}
+#page-title {
+  width: calc(100% - 185px);
+}
+.toolbar-title {
+  color: white;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+}
+
+ion-menu ion-list {
+  .sidemenu-service-icon {
+    width: 24px;
+    height: 24px;
+    margin-top: -2px;
+    position: absolute;
+  }
+
+  .sidemenu-channel-title {
+    padding-left: 30px;
+  }
+}
+
+ion-menu {
+  ion-title {
+    height: 45px;
+    text-align: center;
+  }
+
+  .toolbar-background {
+    background: rgba(0,0,0,0.8);
+  }
+}
+
+.toolbar-content {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  height: 45px;
+
+  #channel-icon {
+    left: 50px;
+    position: absolute;
+  }
+
+  .page-title-icon {
+    left: 55px;
+    position: absolute;
+    top: 8px;
+  }
+
+  #page-title {
+    position: absolute;
+    left: 90px;
+    top: 10px;
+  }
+}
+ion-navbar {
+  .bar-buttons ion-icon {
+    transition: all 0.333s ease-in-out;
+    color: white !important;
+  }
+
+  .bar-buttons:hover ion-icon {
+    color: rgba(255,255,255,0.7) !important;
+  }
+
+  .bar-buttons:active ion-icon {
+    color: rgba(255,255,255,0.4) !important;
+  }
+}
+
+.full-table {
+  height: 100%;
+  width: 100%;
+  display: table;
+}
+
+.action-sheet-group {
+  overflow: hidden;
+}
+
+.top-level {
+  z-index: 2;
+}
+
+.bottom-level {
+  z-index: 1;
+}
+
+.full-width {
+  width: 100%;
+}
+
+@media (max-width: 400px) {
+  .toolbar-title {
+    font-size: 1.67rem;
+  }
+  .toolbar-content #page-title {
+    top: 12.9px;
+  }
+}
+
+@for $i from 1 through 20 {
+    .load-step-#{$i} {
+        -webkit-animation-delay: $i*0.111s;
+        -o-animation-delay: $i*0.111s;
+        animation-delay: $i*0.111s;
+    }
+}
