@@ -9,6 +9,7 @@ import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore
 import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
+import { MinerProvider } from '../providers/miner/miner';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBhagFMEWAIdudPfyC6CIdDBlLhFWGVmr8",
@@ -42,7 +43,8 @@ const firebaseConfig = {
     AngularFirestore,
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    MinerProvider
   ]
 })
 export class AppModule { }

