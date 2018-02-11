@@ -9,6 +9,9 @@
             Network Hash Rate
           </ion-card-header>
           <ion-card-content>
+            <div class="card-stat">
+                {{ networkStats.difficulty | difficultyToHash | hash }}
+            </div>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -18,6 +21,9 @@
             Pool Hash Rate
           </ion-card-header>
           <ion-card-content>
+            <div class="card-stat">
+                {{ poolStats.hashRate | hash }}
+            </div>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -27,6 +33,23 @@
               Miners Connected
           </ion-card-header>
           <ion-card-content>
+            <div class="card-stat">
+              {{ poolStats.miners }}
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-card card="primary">
+          <ion-card-header>
+            Pool Configuration
+          </ion-card-header>
+          <ion-card-content>
+            <pool-config-table [poolConfigs]="poolConfigs"></pool-config-table>
           </ion-card-content>
         </ion-card>
       </ion-col>

@@ -21,16 +21,6 @@ export const PAGES = {
             icon: 'cash'
         },
         {
-            title: 'Ports',
-            slug: 'ports',
-            icon: 'flash'
-        },
-        {
-            title: 'Network',
-            slug: 'network',
-            icon: 'git-network'
-        },
-        {
             title: 'Support',
             slug: 'support',
             icon: 'chatboxes'

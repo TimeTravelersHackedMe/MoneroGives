@@ -1,0 +1,32 @@
+<ion-row>
+  <ion-col>PPLNS Fee</ion-col>
+  <ion-col>{{ pool.pplnsFee }}%</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>Solo Fee</ion-col>
+  <ion-col> {{ pool.soloFee }}%</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>BitCoin Fee</ion-col>
+  <ion-col> {{ pool.btcFee }}%</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>Minimum Wallet Payout</ion-col>
+  <ion-col>{{ pool.minWalletPayment | xmr }} XMR</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>Minimum Bitcoin Payout</ion-col>
+  <ion-col>{{ pool.minBtcPayout | xmr }} XMR</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>Minimum Exhange Payout</ion-col>
+  <ion-col>{{ pool.minExchangePayout | xmr }} XMR</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>Block Maturity Depth</ion-col>
+  <ion-col>{{ pool.maturityDepth }}</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>Minimum Denomination</ion-col>
+  <ion-col>{{ pool.minDenom | denomination }}</ion-col>
+</ion-row>

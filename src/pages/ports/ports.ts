@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, ViewController } from 'ionic-angular';
 
 import { Luz } from '../../providers/luz/luz';

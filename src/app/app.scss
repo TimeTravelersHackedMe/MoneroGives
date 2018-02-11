@@ -85,6 +85,9 @@ ion-content.content {
 ion-card.card {
   margin: 0;
   width: 100%;
+  ion-card-header {
+      text-align: center;
+  }
 }
 
 .toolbar-content {

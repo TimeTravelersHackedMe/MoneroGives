@@ -15,7 +15,7 @@ export class DashboardPage {
   page;
 
   constructor(private view: ViewController) {
-    this.page = Luz.getPageParams(view.id);
+    this.page = Luz.getPageParams(this.view.id);
   }
 
 }
