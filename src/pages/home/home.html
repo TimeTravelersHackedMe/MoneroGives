@@ -6,12 +6,13 @@
       <ion-col col-12 col-sm-6 col-lg-4>
         <ion-card color="primary">
           <ion-card-header>
-            Network Hash Rate
+            Monero's Network Hash Rate
           </ion-card-header>
           <ion-card-content>
             <div class="card-stat">
                 {{ networkStats.difficulty | difficultyToHash | hash }}
             </div>
+            <card-chart *ngIf="networkHistory" [networkHistory]="networkHistory"></card-chart>
           </ion-card-content>
         </ion-card>
       </ion-col>

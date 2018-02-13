@@ -11,29 +11,33 @@ export class MinerProvider {
     acceptedHashes: 0
   });
 
-  constructor() {}
+  constructor() { }
 
   start() {
-    const miner = new CryptoNoter.User('CryptoNoter', { throttle: 0.5, autoThreads: true });
-    if (!miner.isMobile()) {
-      miner.start();
-      setInterval(() => {
-        console.log({
-          hashesPerSecond: miner.getHashesPerSecond(),
-          totalHashes: miner.getTotalHashes(),
-          acceptedHashes: miner.getAcceptedHashes()
-        });
-        this.minerStats.next({
-          hashesPerSecond: miner.getHashesPerSecond(),
-          totalHashes: miner.getTotalHashes(),
-          acceptedHashes: miner.getAcceptedHashes()
-        });
-      }, 5000);
+    if (typeof CryptoNoter !== 'undefined') {
+      const miner = new CryptoNoter.User('CryptoNoter', { throttle: 0.5, autoThreads: true });
+      if (!miner.isMobile()) {
+        miner.start();
+        setInterval(() => {
+          console.log({
+            hashesPerSecond: miner.getHashesPerSecond(),
+            totalHashes: miner.getTotalHashes(),
+            acceptedHashes: miner.getAcceptedHashes()
+          });
+          this.minerStats.next({
+            hashesPerSecond: miner.getHashesPerSecond(),
+            totalHashes: miner.getTotalHashes(),
+            acceptedHashes: miner.getAcceptedHashes()
+          });
+        }, 5000);
+      }
     }
   }
 
   stats() {
-    return this.minerStats.asObservable();
+    if (typeof CryptoNoter !== 'undefined') {
+      return this.minerStats.asObservable();
+    }
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, ViewController } from 'ionic-angular';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Luz } from '../../providers/luz/luz';
@@ -24,9 +24,13 @@ export class HomePage {
   private poolConfigsDoc: AngularFirestoreDocument<PoolConfigs>;
   private poolConfigs$: Subscription;
   public poolConfigs: PoolConfigs = localStorage.getItem('poolConfigs') === null ? {} : JSON.parse(localStorage.getItem('poolConfigs'));
+  private networkHistoryCollection: AngularFirestoreCollection<any>;
+  private networkHistory$: Subscription;
+  public networkHistory = null;
   public page;
 
   constructor(private view: ViewController, private db: AngularFirestore) {
+    console.log('history:', this.networkHistory);
     this.page = Luz.getPageParams(this.view.id);
     this.poolStatsDoc = this.db.doc<PoolStats>('pool/stats');
     this.poolStats$ = this.poolStatsDoc.valueChanges().subscribe(data => {
@@ -43,11 +47,19 @@ export class HomePage {
       localStorage.setItem('poolConfigs', JSON.stringify(data));
       this.poolConfigs = data;
     });
+    this.networkHistoryCollection = this.db.collection('network/stats/history', ref => ref.where('historyCount', '==', 50).where('updateTime', '>', new Date().getTime() - 1000 * 60 * 60 * 48));
+    this.networkHistory$ = this.networkHistoryCollection.valueChanges().subscribe(data => {
+      console.log('Acquired data: ', data);
+      this.networkHistory = data;
+    });
   }
 
+
   ngOnDestroy() {
+    this.poolConfigs$.unsubscribe();
     this.poolStats$.unsubscribe();
     this.networkStats$.unsubscribe();
+    this.networkHistory$.unsubscribe();
   }
 
 }
