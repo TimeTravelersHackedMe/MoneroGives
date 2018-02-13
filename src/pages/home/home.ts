@@ -15,7 +15,7 @@ import { NetworkStats, PoolStats, PoolConfigs } from '../../constants/interfaces
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnDestroy {
   private networkStatsDoc: AngularFirestoreDocument<NetworkStats>;
   private networkStats$: Subscription;
   public networkStats: NetworkStats = localStorage.getItem('networkStats') === null ? {} : JSON.parse(localStorage.getItem('networkStats'));
@@ -27,7 +27,7 @@ export class HomePage {
   public poolConfigs: PoolConfigs = localStorage.getItem('poolConfigs') === null ? {} : JSON.parse(localStorage.getItem('poolConfigs'));
   private networkHistoryCollection: AngularFirestoreCollection<any>;
   private networkHistory$: Subscription;
-  public networkHistory;
+  public networkHistory: Array<NetworkStats> = localStorage.getItem('networkHistory') === null ? null : JSON.parse(localStorage.getItem('networkHistory'));
   private poolHistoryCollection: AngularFirestoreCollection<any>;
   private poolHistory$: Subscription;
   public poolHistory;
@@ -53,6 +53,7 @@ export class HomePage {
     });
     this.networkHistoryCollection = this.db.collection('network/stats/history', ref => ref.where('historyCount', '==', 50).where('updateTime', '>', new Date().getTime() - CONFIG.networkStats.range));
     this.networkHistory$ = this.networkHistoryCollection.valueChanges().subscribe(data => {
+      localStorage.setItem('networkHistory', JSON.stringify(data));
       this.networkHistory = data;
     });
     this.poolHistoryCollection = this.db.collection('pool/stats/history', ref => ref.where('historyCount', '==', 50).where('updateTime', '>', new Date().getTime() - CONFIG.poolStats.range));

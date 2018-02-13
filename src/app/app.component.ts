@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { PAGES } from '../constants/pages';
 import { MinerProvider } from '../providers/miner/miner';
 
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -18,8 +19,6 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, miner: MinerProvider) {
     this.pages = PAGES.LIST;
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
     });

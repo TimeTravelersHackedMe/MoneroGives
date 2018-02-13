@@ -8,13 +8,17 @@ import { PipesModule } from '../pipes/pipes.module';
 import { CardChartComponent } from './card-chart/card-chart';
 import { HashPipe } from '../pipes/hash/hash';
 import { DifficultyToHashPipe } from '../pipes/difficulty-to-hash/difficulty-to-hash';
+import { PoolStatsTableComponent } from './pool-stats-table/pool-stats-table';
+import { NetworkStatsTableComponent } from './network-stats-table/network-stats-table';
 
 @NgModule({
 	declarations: [
 		SideMenuEntryComponent,
 		NavBarComponent,
 		PoolConfigTableComponent,
-    	CardChartComponent
+    	CardChartComponent,
+    PoolStatsTableComponent,
+    NetworkStatsTableComponent
 	],
 	imports: [
 		IonicModule,
@@ -24,7 +28,9 @@ import { DifficultyToHashPipe } from '../pipes/difficulty-to-hash/difficulty-to-
 		SideMenuEntryComponent,
 		NavBarComponent,
 		PoolConfigTableComponent,
-    	CardChartComponent
+    	CardChartComponent,
+    PoolStatsTableComponent,
+    NetworkStatsTableComponent
 	],
 	providers: [
 		HashPipe,

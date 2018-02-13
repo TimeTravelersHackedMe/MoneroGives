@@ -10,9 +10,9 @@
           </ion-card-header>
           <ion-card-content>
             <div class="card-stat">
-                {{ networkStats.difficulty | difficultyToHash | hash }}
+              {{ networkStats.difficulty | difficultyToHash | hash }}
             </div>
-            <card-chart *ngIf="networkHistory" [data]="networkHistory" [selector]="'difficulty'"></card-chart>
+            <card-chart *ngIf="networkHistory" [data]="networkHistory" [selector]="'difficulty'" [isHashRate]="true"></card-chart>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -23,28 +23,47 @@
           </ion-card-header>
           <ion-card-content>
             <div class="card-stat">
-                {{ poolStats.hashRate | hash }}
+              {{ poolStats.hashRate | hash }}
             </div>
-            <card-chart *ngIf="poolHistory" [data]="poolHistory" [selector]="'hashRate'"></card-chart>
+            <card-chart *ngIf="poolHistory" [data]="poolHistory" [selector]="'hashRate'" [isHashRate]="true"></card-chart>
           </ion-card-content>
         </ion-card>
       </ion-col>
       <ion-col col-12 col-sm-6 col-lg-4>
         <ion-card color="secondary">
           <ion-card-header>
-              Miners Connected
+            Miners Connected
           </ion-card-header>
           <ion-card-content>
             <div class="card-stat">
               {{ poolStats.miners }}
             </div>
+            <card-chart *ngIf="poolHistory" [data]="poolHistory" [selector]="'miners'"></card-chart>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col></ion-col>
-      <ion-col></ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            Network Stats
+          </ion-card-header>
+          <ion-card-content>
+            <network-stats-table [networkStats]="networkStats"></network-stats-table>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            Pool Stats
+          </ion-card-header>
+          <ion-card-content>
+            <pool-stats-table [poolStats]="poolStats"></pool-stats-table>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
       <ion-col>
         <ion-card card="primary">
           <ion-card-header>

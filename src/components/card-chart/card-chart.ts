@@ -12,18 +12,23 @@ import { DifficultyToHashPipe } from '../../pipes/difficulty-to-hash/difficulty-
 export class CardChartComponent implements OnChanges {
   @Input('data') stats: Array<any>;
   @Input('selector') selector: string;
+  @Input('isHashRate') isHashRate: boolean = false;
   @ViewChild('chartCanvas') canvas;
-  private data;
-  private time;
+  private data: Array<object> = [];
+  public chart: Chart;
 
   constructor(private hashPipe: HashPipe, private difficultyPipe: DifficultyToHashPipe) { }
 
   ngOnChanges() {
-    moment.relativeTimeThreshold('m', 60);
-    moment.relativeTimeThreshold('h', 24 * 26);
-    this.data = this.stats.map(x => { return { y: this.difficultyPipe.transform(x[this.selector]), x: new Date(x.updateTime) } });
-    console.log(this.data);
-    new Chart(this.canvas.nativeElement, {
+    if (!this.chart) {
+      this.initChart();
+    }
+    this.chart.data.datasets[0].data = this.stats.map(x => { return { y: this.isHashRate ? this.difficultyPipe.transform(x[this.selector]) : x[this.selector], x: new Date(x.updateTime) } });
+    this.chart.update();
+  }
+
+  initChart() {
+    this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
         datasets: [{
@@ -35,34 +40,45 @@ export class CardChartComponent implements OnChanges {
         legend: {
           display: false
         },
+        tooltips: {
+          bodyFontSize: '24',
+          displayColors: false,
+          bodyFontStyle: 'bold',
+          callbacks: {
+            label: (tooltipItem, data) => {
+              return this.isHashRate ? this.hashPipe.transform(tooltipItem.yLabel) : tooltipItem.yLabel;
+            },
+            title: (data) => {
+              return moment(data[0].xLabel).format('dddd hA') + ' (' + moment(data[0].xLabel).fromNow() + ')';
+            }
+          }
+        },
         scales: {
-            xAxes: [{
-                type: 'time',
-                distribution: 'linear',
-                ticks: {
-                  fontColor: 'rgba(255,255,255,0.667)'
-                },
-                time: {
-                  displayFormats: {
-                    hour: 'ddd hA'
-                  },
-                  stepSize: 5,
-                  unit: 'hour'
-                }
-            }],
-            yAxes: [{
-              type: 'linear',
-              ticks: {
-                callback: (value) => {
-                  return this.hashPipe.transform(value)
-                },
-                fontColor: 'rgba(255,255,255,0.667)'
-              }
-            }]
+          xAxes: [{
+            type: 'time',
+            distribution: 'linear',
+            ticks: {
+              fontColor: 'rgba(255,255,255,0.667)'
+            },
+            time: {
+              displayFormats: {
+                hour: 'ddd hA'
+              },
+              stepSize: 5,
+              unit: 'hour'
+            }
+          }],
+          yAxes: [{
+            type: 'linear',
+            ticks: {
+              callback: (value) => {
+                return this.isHashRate ? this.hashPipe.transform(value) : value;
+              },
+              fontColor: 'rgba(255,255,255,0.667)',
+            }
+          }]
         }
-    }
+      }
     });
   }
-
-
 }

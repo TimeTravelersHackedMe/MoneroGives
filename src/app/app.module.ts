@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
+import { Chart } from 'chart.js';
+import * as moment from 'moment';
 
 import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
@@ -47,4 +49,11 @@ const firebaseConfig = {
     MinerProvider
   ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    moment.relativeTimeThreshold('m', 60);
+    moment.relativeTimeThreshold('h', 24 * 26);
+    Chart.defaults.global.defaultFontColor = 'red';
+    Chart.defaults.global.defaultFontFamily = 'Montserrat';
+  }
+}
