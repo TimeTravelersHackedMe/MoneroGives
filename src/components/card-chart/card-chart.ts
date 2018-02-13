@@ -10,7 +10,8 @@ import { DifficultyToHashPipe } from '../../pipes/difficulty-to-hash/difficulty-
   templateUrl: 'card-chart.html'
 })
 export class CardChartComponent implements OnChanges {
-  @Input('networkHistory') stats: any;
+  @Input('data') stats: Array<any>;
+  @Input('selector') selector: string;
   @ViewChild('chartCanvas') canvas;
   private data;
   private time;
@@ -20,7 +21,7 @@ export class CardChartComponent implements OnChanges {
   ngOnChanges() {
     moment.relativeTimeThreshold('m', 60);
     moment.relativeTimeThreshold('h', 24 * 26);
-    this.data = this.stats.map(x => { return { y: this.difficultyPipe.transform(x.difficulty), x: new Date(x.updateTime) } });
+    this.data = this.stats.map(x => { return { y: this.difficultyPipe.transform(x[this.selector]), x: new Date(x.updateTime) } });
     console.log(this.data);
     new Chart(this.canvas.nativeElement, {
       type: 'line',

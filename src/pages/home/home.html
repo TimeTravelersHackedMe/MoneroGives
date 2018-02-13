@@ -12,7 +12,7 @@
             <div class="card-stat">
                 {{ networkStats.difficulty | difficultyToHash | hash }}
             </div>
-            <card-chart *ngIf="networkHistory" [networkHistory]="networkHistory"></card-chart>
+            <card-chart *ngIf="networkHistory" [data]="networkHistory" [selector]="'difficulty'"></card-chart>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -25,6 +25,7 @@
             <div class="card-stat">
                 {{ poolStats.hashRate | hash }}
             </div>
+            <card-chart *ngIf="poolHistory" [data]="poolHistory" [selector]="'hashRate'"></card-chart>
           </ion-card-content>
         </ion-card>
       </ion-col>

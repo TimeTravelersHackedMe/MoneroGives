@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Subscription } from 'rxjs/Subscription';
 
 import { Luz } from '../../providers/luz/luz';
+import { CONFIG } from '../../constants/config';
 import { NetworkStats, PoolStats, PoolConfigs } from '../../constants/interfaces';
 
 @IonicPage({
@@ -26,7 +27,10 @@ export class HomePage {
   public poolConfigs: PoolConfigs = localStorage.getItem('poolConfigs') === null ? {} : JSON.parse(localStorage.getItem('poolConfigs'));
   private networkHistoryCollection: AngularFirestoreCollection<any>;
   private networkHistory$: Subscription;
-  public networkHistory = null;
+  public networkHistory;
+  private poolHistoryCollection: AngularFirestoreCollection<any>;
+  private poolHistory$: Subscription;
+  public poolHistory;
   public page;
 
   constructor(private view: ViewController, private db: AngularFirestore) {
@@ -47,10 +51,13 @@ export class HomePage {
       localStorage.setItem('poolConfigs', JSON.stringify(data));
       this.poolConfigs = data;
     });
-    this.networkHistoryCollection = this.db.collection('network/stats/history', ref => ref.where('historyCount', '==', 50).where('updateTime', '>', new Date().getTime() - 1000 * 60 * 60 * 48));
+    this.networkHistoryCollection = this.db.collection('network/stats/history', ref => ref.where('historyCount', '==', 50).where('updateTime', '>', new Date().getTime() - CONFIG.networkStats.range));
     this.networkHistory$ = this.networkHistoryCollection.valueChanges().subscribe(data => {
-      console.log('Acquired data: ', data);
       this.networkHistory = data;
+    });
+    this.poolHistoryCollection = this.db.collection('pool/stats/history', ref => ref.where('historyCount', '==', 50).where('updateTime', '>', new Date().getTime() - CONFIG.poolStats.range));
+    this.poolHistory$ = this.poolHistoryCollection.valueChanges().subscribe(data => {
+      this.poolHistory = data;
     });
   }
 
