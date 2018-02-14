@@ -1,22 +1,22 @@
 <ion-row>
   <ion-col>Pool Type</ion-col>
-  <ion-col>PPLNS</ion-col>
+  <ion-col>{{ poolType }}</ion-col>
 </ion-row>
 <ion-row>
   <ion-col>Total Hashes Accepted</ion-col>
-  <ion-col></ion-col>
+  <ion-col>{{ pool.totalHashes }}</ion-col>
 </ion-row>
 <ion-row>
   <ion-col>Height</ion-col>
-  <ion-col></ion-col>
+  <ion-col>{{ pool.lastBlockFound | number }}</ion-col>
 </ion-row>
 <ion-row>
   <ion-col>Last Block</ion-col>
-  <ion-col></ion-col>
+  <ion-col class="hover-expand" [innerHTML]="firstBlock.hash | hashToLink: 'block'"></ion-col>
 </ion-row>
 <ion-row>
   <ion-col>Block Reward</ion-col>
-  <ion-col></ion-col>
+  <ion-col>{{ firstBlock.value | xmr | number:'1.1-4' }} XMR / {{ firstBlock.value | xmr | convertCurrency: ['XMR', 'USD'] }}</ion-col>
 </ion-row>
 <ion-row>
   <ion-col>Blocks Found</ion-col>

@@ -1,11 +1,6 @@
 export const PAGES = {
     LIST: [
         {
-            title: 'Home',
-            slug: 'home',
-            icon: 'home'
-        },
-        {
             title: 'Dashboard',
             slug: 'dashboard',
             icon: 'stats'

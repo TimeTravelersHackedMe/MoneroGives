@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { PoolStats } from '../../constants/interfaces';
+import { PoolStats, Block } from '../../constants/interfaces';
 
 @Component({
   selector: 'pool-stats-table',
@@ -8,6 +8,8 @@ import { PoolStats } from '../../constants/interfaces';
 })
 export class PoolStatsTableComponent {
   @Input('poolStats') pool: PoolStats;
+  @Input('firstBlock') firstBlock: Block;
+  public poolType: string = 'PPLNS';
 
   constructor() {}
 

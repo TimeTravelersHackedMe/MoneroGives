@@ -1,3 +1,9 @@
 page-blocks {
-
+    ion-grid {
+        > ion-row {
+            @extend %table-row;
+        }
+        @extend %table-row-cases;
+        @extend %table-header;
+    }
 }

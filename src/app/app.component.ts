@@ -12,7 +12,7 @@ import { MinerProvider } from '../providers/miner/miner';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = 'home';
+  rootPage: any = 'dashboard';
   pages;
   test;
 

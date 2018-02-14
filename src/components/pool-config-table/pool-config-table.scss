@@ -1,8 +1,7 @@
 pool-config-table {
     ion-row {
-        padding: 2px 8px 2px 8px;
+        @extend %table-row;
     }
-    ion-row:nth-child(2n + 1) {
-        background-color: color($colors, light);
-    }
+    @extend %table-row-cases;
+    @extend %table-border-top;
 }

@@ -1,4 +1,16 @@
-<!-- Generated template for the NetworkStatsTableComponent component -->
-<div>
-  {{text}}
-</div>
+<ion-row>
+  <ion-col><center>Difficulty</center></ion-col>
+  <ion-col><center>{{ network.difficulty }}</center></ion-col>
+</ion-row>
+<ion-row>
+  <ion-col><center>Hash</center></ion-col>
+  <ion-col class="hover-expand"><center><div [innerHTML]="network.hash | hashToLink: 'block'"></div></center></ion-col>
+</ion-row>
+<ion-row>
+  <ion-col><center>Reward</center></ion-col>
+  <ion-col><center>{{ network.value | xmr | number: '1.1-4' }} XMR / {{ network.value | xmr | convertCurrency: ['XMR', 'USD']  }}</center></ion-col>
+</ion-row>
+<ion-row>
+  <ion-col><center>Time Found</center></ion-col>
+  <ion-col><center>{{ getTimeFound() }}</center></ion-col>
+</ion-row>
