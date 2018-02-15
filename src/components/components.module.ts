@@ -11,7 +11,6 @@ import { DifficultyToHashPipe } from '../pipes/difficulty-to-hash/difficulty-to-
 import { PoolStatsTableComponent } from './pool-stats-table/pool-stats-table';
 import { NetworkStatsTableComponent } from './network-stats-table/network-stats-table';
 import { CenterComponent } from './center/center';
-import { DirectivesModule } from '../directives/directives.module';
 
 @NgModule({
 	declarations: [
@@ -25,8 +24,7 @@ import { DirectivesModule } from '../directives/directives.module';
 	],
 	imports: [
 		IonicModule,
-		PipesModule,
-		DirectivesModule
+		PipesModule
 	],
 	exports: [
 		SideMenuEntryComponent,
