@@ -11,7 +11,7 @@
         </ion-row>
         <ion-row *ngFor="let payment of payments">
             <ion-col><center>{{ payment.ts | fromNow }}</center></ion-col>
-            <ion-col><center hover-expand="{{ payment.hash | hashToLink: 'block' }}"><div [innerHTML]="payment.hash | hashToLink: 'block'"></div></center></ion-col>
+            <ion-col><center><div [innerHTML]="payment.hash | hashToLink: 'block'"></div></center></ion-col>
             <ion-col><center>{{ payment.value }}</center></ion-col>
             <ion-col><center>{{ payment.fee }}</center></ion-col>
             <ion-col><center>{{ payment.mixins }}</center></ion-col>
