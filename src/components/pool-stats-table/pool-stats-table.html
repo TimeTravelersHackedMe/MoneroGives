@@ -1,32 +1,32 @@
 <ion-row>
-  <ion-col>Pool Type</ion-col>
-  <ion-col>{{ poolType }}</ion-col>
+  <ion-col><center>Pool Type</center></ion-col>
+  <ion-col><center>{{ poolType }}</center></ion-col>
 </ion-row>
 <ion-row>
-  <ion-col>Total Hashes Accepted</ion-col>
-  <ion-col>{{ pool.totalHashes }}</ion-col>
+  <ion-col><center>Total Hashes Accepted</center></ion-col>
+  <ion-col><center>{{ pool.totalHashes }}</center></ion-col>
 </ion-row>
 <ion-row>
-  <ion-col>Height</ion-col>
-  <ion-col>{{ pool.lastBlockFound | number }}</ion-col>
+  <ion-col><center>Height</center></ion-col>
+  <ion-col><center>{{ pool.lastBlockFound | number }}</center></ion-col>
 </ion-row>
 <ion-row>
-  <ion-col>Last Block</ion-col>
-  <ion-col class="hover-expand" [innerHTML]="firstBlock.hash | hashToLink: 'block'"></ion-col>
+  <ion-col><center>Last Block</center></ion-col>
+  <ion-col class="hover-parent"><center class="hover-expand"><div [innerHTML]="firstBlock.hash | hashToLink: 'block'"></div></center></ion-col>
 </ion-row>
 <ion-row>
-  <ion-col>Block Reward</ion-col>
-  <ion-col>{{ firstBlock.value | xmr | number:'1.1-4' }} XMR / {{ firstBlock.value | xmr | convertCurrency: ['XMR', 'USD'] }}</ion-col>
+  <ion-col><center>Block Reward</center></ion-col>
+  <ion-col><center>{{ firstBlock.value | xmr | number:'1.1-4' }} XMR / {{ firstBlock.value | xmr | convertCurrency: ['XMR', 'USD'] }}</center></ion-col>
 </ion-row>
 <ion-row>
-  <ion-col>Blocks Found</ion-col>
-  <ion-col>{{ pool.totalBlocksFound }}</ion-col>
+  <ion-col><center>Blocks Found</center></ion-col>
+  <ion-col><center>{{ pool.totalBlocksFound }}</center></ion-col>
 </ion-row>
 <ion-row>
-  <ion-col>Miners Paid</ion-col>
-  <ion-col>{{ pool.totalMinersPaid }}</ion-col>
+  <ion-col><center>Miners Paid</center></ion-col>
+  <ion-col><center>{{ pool.totalMinersPaid }}</center></ion-col>
 </ion-row>
 <ion-row>
-  <ion-col>Payments Sent</ion-col>
-  <ion-col>{{ pool.totalPayments }}</ion-col>
+  <ion-col><center>Payments Sent</center></ion-col>
+  <ion-col><center>{{ pool.totalPayments }}</center></ion-col>
 </ion-row>

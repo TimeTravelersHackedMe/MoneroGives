@@ -1,4 +1,21 @@
 <nav-bar [page]="page"></nav-bar>
 <ion-content padding>
-
+    <ion-grid [hidden]="!payments">
+        <ion-row>
+            <ion-col><center>Time Sent</center></ion-col>
+            <ion-col><center>Transaction Hash</center></ion-col>
+            <ion-col><center>Amount</center></ion-col>
+            <ion-col><center>Fee</center></ion-col>
+            <ion-col><center>Mixin</center></ion-col>
+            <ion-col><center>Payees</center></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let payment of payments">
+            <ion-col><center>{{ payment.ts | fromNow }}</center></ion-col>
+            <ion-col><center hover-expand="{{ payment.hash | hashToLink: 'block' }}"><div [innerHTML]="payment.hash | hashToLink: 'block'"></div></center></ion-col>
+            <ion-col><center>{{ payment.value }}</center></ion-col>
+            <ion-col><center>{{ payment.fee }}</center></ion-col>
+            <ion-col><center>{{ payment.mixins }}</center></ion-col>
+            <ion-col><center>{{ payment.payees }}</center></ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

@@ -4,7 +4,4 @@ network-stats-table {
     }
     @extend %table-row-cases;
     @extend %table-border-top;
-    .hover-expand {
-        height: $table-row-height;
-    }
 }
