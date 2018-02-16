@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <ion-row #table>
   <ion-col>
     <center>Pool Type</center>
@@ -67,37 +66,4 @@
   <ion-col>
     <center>{{ pool.totalPayments }}</center>
   </ion-col>
-=======
-<ion-row>
-  <ion-col><center>Pool Type</center></ion-col>
-  <ion-col><center>{{ poolType }}</center></ion-col>
-</ion-row>
-<ion-row>
-  <ion-col><center>Total Hashes Accepted</center></ion-col>
-  <ion-col><center>{{ pool.totalHashes }}</center></ion-col>
-</ion-row>
-<ion-row>
-  <ion-col><center>Height</center></ion-col>
-  <ion-col><center>{{ pool.lastBlockFound | number }}</center></ion-col>
-</ion-row>
-<ion-row>
-  <ion-col><center>Last Block</center></ion-col>
-  <ion-col class="hover-parent"><center class="hover-expand"><div [innerHTML]="firstBlock.hash | hashToLink: 'block'"></div></center></ion-col>
-</ion-row>
-<ion-row>
-  <ion-col><center>Block Reward</center></ion-col>
-  <ion-col><center>{{ firstBlock.value | xmr | number:'1.1-4' }} XMR / {{ firstBlock.value | xmr | convertCurrency: ['XMR', 'USD'] }}</center></ion-col>
-</ion-row>
-<ion-row>
-  <ion-col><center>Blocks Found</center></ion-col>
-  <ion-col><center>{{ pool.totalBlocksFound }}</center></ion-col>
-</ion-row>
-<ion-row>
-  <ion-col><center>Miners Paid</center></ion-col>
-  <ion-col><center>{{ pool.totalMinersPaid }}</center></ion-col>
-</ion-row>
-<ion-row>
-  <ion-col><center>Payments Sent</center></ion-col>
-  <ion-col><center>{{ pool.totalPayments }}</center></ion-col>
->>>>>>> 6897340ed44d5f3982e9eaf331752d11a610adc0
 </ion-row>
