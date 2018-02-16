@@ -1,10 +1,9 @@
 network-stats-table {
-    ion-row {
-        @extend %table-row;
-    }
-    @extend %table-row-cases;
-    @extend %table-border-top;
-    .hover-expand {
-        height: $table-row-height;
+    ion-grid {
+        ion-row {
+            @extend %table-row;
+        }
+        @extend %table-row-cases;
+        @extend %table-border-top;
     }
 }

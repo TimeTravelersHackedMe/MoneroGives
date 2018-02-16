@@ -1,25 +1,64 @@
 <nav-bar [page]="page"></nav-bar>
 <ion-content padding>
-    <ion-grid [hidden]="!blocks">
+    <ion-grid #table [hidden]="!blocks">
         <ion-row>
-            <ion-col style="max-width:60px;"><center class="full-width">Valid</center></ion-col>
-            <ion-col><center>Time</center></ion-col>
-            <ion-col><center>Height</center></ion-col>
-            <ion-col><center>Difficulty</center></ion-col>
-            <ion-col><center>Hash</center></ion-col>
-            <ion-col><center>Shares</center></ion-col>
-            <ion-col><center>Status</center></ion-col>
-            <ion-col><center>Pool Type</center></ion-col>
+            <ion-col style="max-width:63px;">
+                <center class="full-width" text-center>Valid</center>
+            </ion-col>
+            <ion-col style="max-width:140px">
+                <center>Time</center>
+            </ion-col>
+            <ion-col>
+                <center>Height</center>
+            </ion-col>
+            <ion-col>
+                <center>Difficulty</center>
+            </ion-col>
+            <ion-col #hashColumn>
+                <center>Hash</center>
+            </ion-col>
+            <ion-col>
+                <center>Shares</center>
+            </ion-col>
+            <ion-col>
+                <center>Status</center>
+            </ion-col>
+            <ion-col style="max-width:95px;">
+                <center>Pool Type</center>
+            </ion-col>
         </ion-row>
         <ion-row *ngFor="let block of blocks">
-            <ion-col style="max-width:60px;"><center class="full-width"><ion-icon name="{{ block.valid ? 'checkmark-circle' : 'alert'}}"></ion-icon></center></ion-col>
-            <ion-col><center>{{ block.ts | fromNow }}</center></ion-col>
-            <ion-col><center>{{ block.height }}</center></ion-col>
-            <ion-col><center>{{ block.valid }}</center></ion-col>
-            <ion-col><center>{{ block.hash }}</center></ion-col>
-            <ion-col><center>{{ block.shares }}</center></ion-col>
-            <ion-col><center>{{ block.unlocked }}</center></ion-col>
-            <ion-col><center>{{ block.pool_type }}</center></ion-col>
+            <ion-col style="max-width:63px;">
+                <center class="full-width" text-center>
+                    <ion-icon name="{{ block.valid ? 'checkmark-circle' : 'alert'}}"></ion-icon>
+                </center>
+            </ion-col>
+            <ion-col style="max-width:140px;">
+                <center>{{ block.ts | fromNow }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ block.height }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ block.valid }}</center>
+            </ion-col>
+            <ion-col class="hash-overlay-parent" *ngIf="hashColumn" [style.max-width]="hashColumnWidth + 'px'">
+                <center>
+                    <div [innerHTML]="block.hash | hashToLink: 'block'"></div>
+                </center>
+                <hash-overlay [style.max-width]="overlayMaxWidth + 'px'">
+                    <div [innerHTML]="block.hash | hashToLink: 'block'"></div>
+                </hash-overlay>
+            </ion-col>
+            <ion-col>
+                <center>{{ block.shares }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ block.unlocked }}</center>
+            </ion-col>
+            <ion-col style="max-width:95px;">
+                <center>{{ block.pool_type }}</center>
+            </ion-col>
         </ion-row>
     </ion-grid>
 </ion-content>

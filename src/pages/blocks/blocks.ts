@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, ViewController } from 'ionic-angular';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,11 +14,15 @@ import { Block } from '../../constants/interfaces';
   selector: 'page-blocks',
   templateUrl: 'blocks.html',
 })
-export class BlocksPage implements OnDestroy {
+export class BlocksPage implements OnDestroy, OnInit {
+  @ViewChild('hashColumn') hashColumn: any;
+  @ViewChild('table') table: any;
+  public hashColumnWidth: number;
+  public overlayMaxWidth: number;
   public page;
   private blocksCollection: AngularFirestoreCollection<Block>;
   private blocks$: Subscription;
-  public blocks: Array<Block> = localStorage.getItem('blocks') === null ? null : JSON.parse(localStorage.getItem('blocks'));;
+  public blocks: Array<Block> = localStorage.getItem('blocks') === null ? null : JSON.parse(localStorage.getItem('blocks'));
 
   constructor(private view: ViewController, private db: AngularFirestore) {
     this.page = Luz.getPageParams(this.view.id);
@@ -27,6 +31,20 @@ export class BlocksPage implements OnDestroy {
       localStorage.setItem('blocks', JSON.stringify(res));
       this.blocks = res;
     });
+  }
+
+  handleHashOverlay() {
+    this.hashColumnWidth = this.hashColumn.nativeElement.clientWidth;
+    this.overlayMaxWidth = this.table.nativeElement.clientWidth - this.hashColumn.nativeElement.offsetLeft;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.handleHashOverlay();
+  }
+
+  ngOnInit() {
+    this.handleHashOverlay();
   }
 
   ngOnDestroy() {

@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { IonicPage, ViewController } from 'ionic-angular';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Luz } from '../../providers/luz/luz';
+import { Payment } from '../../constants/interfaces';
 
 @IonicPage({
   name: 'payments',
@@ -12,10 +15,40 @@ import { Luz } from '../../providers/luz/luz';
   templateUrl: 'payments.html',
 })
 export class PaymentsPage {
-  page;
+  @ViewChild('hashColumn') hashColumn: any;
+  @ViewChild('table') table: any;
+  public hashColumnWidth: number;
+  public overlayMaxWidth: number;
+  public page;
+  private paymentsCollection: AngularFirestoreCollection<Payment>;
+  private payments$: Subscription;
+  public payments: Array<Payment> = localStorage.getItem('payments') === null ? null : JSON.parse(localStorage.getItem('payments'));
 
-  constructor(private view: ViewController) {
+
+  constructor(private db: AngularFirestore, private view: ViewController) {
     this.page = Luz.getPageParams(this.view.id);
+    this.paymentsCollection = this.db.collection('payments', ref => ref.orderBy('ts').limit(30));
+    this.payments$ = this.paymentsCollection.valueChanges().subscribe(res => {
+      localStorage.setItem('payments', JSON.stringify(res));
+      this.payments = res;
+    });
   }
 
+  handleHashOverlay() {
+    this.hashColumnWidth = this.hashColumn.nativeElement.clientWidth;
+    this.overlayMaxWidth = this.table.nativeElement.clientWidth - this.hashColumn.nativeElement.offsetLeft;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.handleHashOverlay();
+  }
+  
+  ngOnInit() {
+    this.handleHashOverlay();
+  }
+
+  ngOnDestroy() {
+    this.payments$.unsubscribe();
+  }
 }

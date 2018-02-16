@@ -1,4 +1,50 @@
 <nav-bar [page]="page"></nav-bar>
 <ion-content padding>
-
+    <ion-grid #table [hidden]="!payments">
+        <ion-row>
+            <ion-col style="max-width:140px;">
+                <center>Time Sent</center>
+            </ion-col>
+            <ion-col #hashColumn>
+                <center>Transaction Hash</center>
+            </ion-col>
+            <ion-col>
+                <center>Amount</center>
+            </ion-col>
+            <ion-col>
+                <center>Fee</center>
+            </ion-col>
+            <ion-col>
+                <center>Mixin</center>
+            </ion-col>
+            <ion-col>
+                <center>Payees</center>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let payment of payments">
+            <ion-col style="max-width:140px;">
+                <center>{{ payment.ts | fromNow }}</center>
+            </ion-col>
+            <ion-col class="hash-overlay-parent" *ngIf="hashColumn" [style.max-width]="hashColumnWidth + 'px'">
+                <center>
+                    <div [innerHTML]="payment.hash | hashToLink: 'block'"></div>
+                </center>
+                <hash-overlay [style.max-width]="overlayMaxWidth + 'px'">
+                    <div [innerHTML]="payment.hash | hashToLink: 'block'"></div>
+                </hash-overlay>
+            </ion-col>
+            <ion-col>
+                <center>{{ payment.value | xmr }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ payment.fee | xmr }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ payment.mixins }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ payment.payees }}</center>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

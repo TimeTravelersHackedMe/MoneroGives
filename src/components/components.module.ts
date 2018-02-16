@@ -11,16 +11,18 @@ import { DifficultyToHashPipe } from '../pipes/difficulty-to-hash/difficulty-to-
 import { PoolStatsTableComponent } from './pool-stats-table/pool-stats-table';
 import { NetworkStatsTableComponent } from './network-stats-table/network-stats-table';
 import { CenterComponent } from './center/center';
+import { HashOverlayComponent } from './hash-overlay/hash-overlay';
 
 @NgModule({
 	declarations: [
 		SideMenuEntryComponent,
 		NavBarComponent,
 		PoolConfigTableComponent,
-    	CardChartComponent,
-    PoolStatsTableComponent,
-    NetworkStatsTableComponent,
-    CenterComponent
+		CardChartComponent,
+		PoolStatsTableComponent,
+		NetworkStatsTableComponent,
+		CenterComponent,
+		HashOverlayComponent
 	],
 	imports: [
 		IonicModule,
@@ -30,10 +32,11 @@ import { CenterComponent } from './center/center';
 		SideMenuEntryComponent,
 		NavBarComponent,
 		PoolConfigTableComponent,
-    	CardChartComponent,
-    PoolStatsTableComponent,
-    NetworkStatsTableComponent,
-    CenterComponent
+		CardChartComponent,
+		PoolStatsTableComponent,
+		NetworkStatsTableComponent,
+		CenterComponent,
+		HashOverlayComponent
 	],
 	providers: [
 		HashPipe,

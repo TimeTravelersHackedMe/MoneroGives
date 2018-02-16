@@ -1,3 +1,10 @@
 center {
-
+    width: 100%;
+    overflow: hidden;
+    table-layout: fixed;
+    * {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }

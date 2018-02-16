@@ -49,6 +49,7 @@
   center {
     display: table;
     height: 100%;
+    text-align: left;
   }
   .middle {
     vertical-align: middle;
@@ -112,7 +113,7 @@ ion-card.card {
 
 }
 
-.ion-page .content {
+.scroll-content {
   margin-top: 56px;
 }
 
@@ -169,8 +170,16 @@ ion-card.card {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+ion-card-header {
+  font-weight: 700;
+  font-size: 1.72rem !important;
+}
+
 @media (min-width: 1000px) {
   .hover-expand:hover, .hover-expand:focus {
+    position: absolute;
+    right: 0;
     background-color: white;
     box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.333);
     max-width: 1000px;
@@ -187,18 +196,17 @@ $table-row-height: 50px;
 
 %table-row {
   transition: 0.333s all ease-in-out;
-  height: $table-row-height;
+  min-height: $table-row-height;
   background-color: white;
   border-bottom: 1px solid $line-color;
   border-left: 1px solid $line-color;
   border-right: 1px solid $line-color;
   padding: 0;
-  padding-left: 11px;
-  padding-right: 11px;
   > ion-col {
     padding: 11px !important;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
     border-right: 1px solid $line-color;
-    font-size: 1.45rem;
     ion-icon {
         font-size: 2.4rem;
     }

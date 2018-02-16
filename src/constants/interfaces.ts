@@ -13,3 +13,7 @@ export interface PoolConfigs {
 export interface Block {
 
 }
+
+export interface Payment {
+    
+}
