@@ -21,8 +21,12 @@ import { HashOverlayComponent } from './hash-overlay/hash-overlay';
 		CardChartComponent,
 		PoolStatsTableComponent,
 		NetworkStatsTableComponent,
+<<<<<<< HEAD
 		CenterComponent,
 		HashOverlayComponent
+=======
+		CenterComponent
+>>>>>>> 6897340ed44d5f3982e9eaf331752d11a610adc0
 	],
 	imports: [
 		IonicModule,
@@ -35,8 +39,12 @@ import { HashOverlayComponent } from './hash-overlay/hash-overlay';
 		CardChartComponent,
 		PoolStatsTableComponent,
 		NetworkStatsTableComponent,
+<<<<<<< HEAD
 		CenterComponent,
 		HashOverlayComponent
+=======
+		CenterComponent
+>>>>>>> 6897340ed44d5f3982e9eaf331752d11a610adc0
 	],
 	providers: [
 		HashPipe,

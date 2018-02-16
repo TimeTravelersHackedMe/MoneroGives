@@ -1,5 +1,6 @@
 <nav-bar [page]="page"></nav-bar>
 <ion-content padding>
+<<<<<<< HEAD
     <ion-grid #table [hidden]="!payments">
         <ion-row>
             <ion-col style="max-width:140px;">
@@ -45,6 +46,24 @@
             <ion-col>
                 <center>{{ payment.payees }}</center>
             </ion-col>
+=======
+    <ion-grid [hidden]="!payments">
+        <ion-row>
+            <ion-col><center>Time Sent</center></ion-col>
+            <ion-col><center>Transaction Hash</center></ion-col>
+            <ion-col><center>Amount</center></ion-col>
+            <ion-col><center>Fee</center></ion-col>
+            <ion-col><center>Mixin</center></ion-col>
+            <ion-col><center>Payees</center></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let payment of payments">
+            <ion-col><center>{{ payment.ts | fromNow }}</center></ion-col>
+            <ion-col><center><div [innerHTML]="payment.hash | hashToLink: 'block'"></div></center></ion-col>
+            <ion-col><center>{{ payment.value }}</center></ion-col>
+            <ion-col><center>{{ payment.fee }}</center></ion-col>
+            <ion-col><center>{{ payment.mixins }}</center></ion-col>
+            <ion-col><center>{{ payment.payees }}</center></ion-col>
+>>>>>>> 6897340ed44d5f3982e9eaf331752d11a610adc0
         </ion-row>
     </ion-grid>
 </ion-content>

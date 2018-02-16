@@ -1,4 +1,5 @@
 network-stats-table {
+<<<<<<< HEAD
     ion-grid {
         ion-row {
             @extend %table-row;
@@ -6,4 +7,11 @@ network-stats-table {
         @extend %table-row-cases;
         @extend %table-border-top;
     }
+=======
+    ion-row {
+        @extend %table-row;
+    }
+    @extend %table-row-cases;
+    @extend %table-border-top;
+>>>>>>> 6897340ed44d5f3982e9eaf331752d11a610adc0
 }

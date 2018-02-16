@@ -156,8 +156,9 @@ ion-card.card {
     }
 }
 
+$table-row-height: 50px;
 
-.hover-expand, .hover-expand * {
+.hover-expand {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -165,9 +166,10 @@ ion-card.card {
 }
 
 .hover-expand * {
-  width: 100%;
-  white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.hover-parent {
   overflow: hidden;
 }
 
@@ -177,22 +179,35 @@ ion-card-header {
 }
 
 @media (min-width: 1000px) {
+<<<<<<< HEAD
   .hover-expand:hover, .hover-expand:focus {
     position: absolute;
     right: 0;
+=======
+  .hover-parent:hover > .hover-expand {
+    position: absolute;
+    top: 0;
+    padding-left: 11px;
+    padding-right: 11px;
+    margin-left: -11px;
+>>>>>>> 6897340ed44d5f3982e9eaf331752d11a610adc0
     background-color: white;
     box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.333);
     max-width: 1000px;
+    min-height: $table-row-height;
     width: auto;
-    padding: 5px;
+    line-height: 24px;
     border-radius: 3px;
     z-index: 9;
     overflow: visible;
     box-shadow: 5px 5px 5px 5px solid black;
   }
+  .hover-parent:hover {
+    overflow: visible;
+    position: absolute;
+    z-index: 9999;
+  }
 }
-
-$table-row-height: 50px;
 
 %table-row {
   transition: 0.333s all ease-in-out;
@@ -207,6 +222,11 @@ $table-row-height: 50px;
     padding-bottom: 0 !important;
     padding-top: 0 !important;
     border-right: 1px solid $line-color;
+<<<<<<< HEAD
+=======
+    font-size: 1.45rem;
+    min-height: $table-row-height !important;
+>>>>>>> 6897340ed44d5f3982e9eaf331752d11a610adc0
     ion-icon {
         font-size: 2.4rem;
     }

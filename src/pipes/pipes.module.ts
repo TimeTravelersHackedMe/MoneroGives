@@ -14,7 +14,7 @@ import { FromNowPipe } from './from-now/from-now';
         XmrPipe,
         HashToLinkPipe,
         ConvertCurrencyPipe,
-    FromNowPipe
+        FromNowPipe
     ],
     imports: [],
     exports: [
@@ -23,7 +23,7 @@ import { FromNowPipe } from './from-now/from-now';
         XmrPipe,
         HashToLinkPipe,
         ConvertCurrencyPipe,
-    FromNowPipe
+        FromNowPipe
     ]
 })
 export class PipesModule { }
