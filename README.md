@@ -30,3 +30,5 @@ It will have all the features of PoolUI. I'm open to adding new features (post a
 Demo front end: https://monero.gives
 
 Demo login screen: https://monero.gives/#/login
+
+# Check out the TODO.md if you can help
