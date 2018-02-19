@@ -16,6 +16,11 @@ export const PAGES = {
             icon: 'cash'
         },
         {
+            title: 'Ports',
+            slug: 'ports',
+            icon: 'git-pull-request'
+        },
+        {
             title: 'Support',
             slug: 'support',
             icon: 'chatboxes'
@@ -29,6 +34,28 @@ export const PAGES = {
             title: 'FAQ',
             slug: 'faq',
             icon: 'help-circle'
+        }
+    ],
+    ADMIN_LIST: [
+        {
+            title: 'Overview',
+            slug: 'admin',
+            icon: 'stats'
+        },
+        {
+            title: 'Workers',
+            slug: 'admin/workers',
+            icon: 'people'
+        },
+        {
+            title: 'Ports',
+            slug: 'admin/ports',
+            icon: 'git-pull-request'
+        },
+        {
+            title: 'Settings',
+            slug: 'admin/settings',
+            icon: 'settings'
         }
     ]
 }

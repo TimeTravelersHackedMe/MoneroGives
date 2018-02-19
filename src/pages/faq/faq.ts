@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, ViewController } from 'ionic-angular';
 
 import { Luz } from '../../providers/luz/luz';
+import { PageParams } from '../../constants/interfaces';
 
 @IonicPage({
   name: 'faq',
@@ -12,10 +13,12 @@ import { Luz } from '../../providers/luz/luz';
   templateUrl: 'faq.html',
 })
 export class FaqPage {
-  page;
+  public page: PageParams = {slug: '', title: '', icon: ''};
 
   constructor(private view: ViewController) {
-    this.page = Luz.getPageParams(this.view.id);
+    Luz.getPageParams(this.view.id).then(data => {
+      this.page = data;
+    });
   }
 
 }

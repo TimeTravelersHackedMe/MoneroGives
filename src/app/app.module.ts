@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -12,7 +13,11 @@ import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { MinerProvider } from '../providers/miner/miner';
+import { AuthProvider } from '../providers/auth/auth';
+import { AdminDataProvider } from '../providers/admin-data/admin-data';
 
+
+/// please don't mess with this database.. you can use it for sample data if you want to run a test app
 const firebaseConfig = {
   apiKey: "AIzaSyBhagFMEWAIdudPfyC6CIdDBlLhFWGVmr8",
   authDomain: "monero-gives.firebaseapp.com",
@@ -35,7 +40,8 @@ const firebaseConfig = {
       pageTransition: 'md-transition'
     }),
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,7 +52,9 @@ const firebaseConfig = {
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    MinerProvider
+    MinerProvider,
+    AuthProvider,
+    AdminDataProvider
   ]
 })
 export class AppModule {

@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Luz } from '../../providers/luz/luz';
 import { Payment } from '../../constants/interfaces';
+import { PageParams } from '../../constants/interfaces';
 
 @IonicPage({
   name: 'payments',
@@ -19,14 +20,16 @@ export class PaymentsPage {
   @ViewChild('table') table: any;
   public hashColumnWidth: number;
   public overlayMaxWidth: number;
-  public page;
+  public page: PageParams = {slug: '', title: '', icon: ''};
   private paymentsCollection: AngularFirestoreCollection<Payment>;
   private payments$: Subscription;
   public payments: Array<Payment> = localStorage.getItem('payments') === null ? null : JSON.parse(localStorage.getItem('payments'));
 
 
   constructor(private db: AngularFirestore, private view: ViewController) {
-    this.page = Luz.getPageParams(this.view.id);
+    Luz.getPageParams(this.view.id).then(data => {
+      this.page = data;
+    });
     this.paymentsCollection = this.db.collection('payments', ref => ref.orderBy('ts').limit(30));
     this.payments$ = this.paymentsCollection.valueChanges().subscribe(res => {
       localStorage.setItem('payments', JSON.stringify(res));
@@ -43,7 +46,7 @@ export class PaymentsPage {
   onResize(event) {
     this.handleHashOverlay();
   }
-  
+
   ngOnInit() {
     this.handleHashOverlay();
   }

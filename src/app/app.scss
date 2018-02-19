@@ -200,6 +200,12 @@ ion-card-header {
   }
 }
 
+@media (min-width: map-get($grid-breakpoints, lg)) {
+  button.bar-button-menutoggle-md {
+    display: none !important;
+  }
+}
+
 %table-row {
   transition: 0.333s all ease-in-out;
   min-height: $table-row-height;

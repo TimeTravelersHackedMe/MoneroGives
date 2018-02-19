@@ -4,7 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Subscription } from 'rxjs/Subscription';
 
 import { Luz } from '../../providers/luz/luz';
-import { Block } from '../../constants/interfaces';
+import { Block, PageParams } from '../../constants/interfaces';
 
 @IonicPage({
   name: 'blocks',
@@ -19,13 +19,15 @@ export class BlocksPage implements OnDestroy, OnInit {
   @ViewChild('table') table: any;
   public hashColumnWidth: number;
   public overlayMaxWidth: number;
-  public page;
+  public page: PageParams = { slug: '', title: '', icon: '' };
   private blocksCollection: AngularFirestoreCollection<Block>;
   private blocks$: Subscription;
   public blocks: Array<Block> = localStorage.getItem('blocks') === null ? null : JSON.parse(localStorage.getItem('blocks'));
 
   constructor(private view: ViewController, private db: AngularFirestore) {
-    this.page = Luz.getPageParams(this.view.id);
+    Luz.getPageParams(this.view.id).then(data => {
+      this.page = data;
+    });
     this.blocksCollection = this.db.collection('blocks', ref => ref.orderBy('ts').limit(30));
     this.blocks$ = this.blocksCollection.valueChanges().subscribe(res => {
       localStorage.setItem('blocks', JSON.stringify(res));

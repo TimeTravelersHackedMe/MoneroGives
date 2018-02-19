@@ -1,14 +1,19 @@
 <ion-split-pane when="lg">
-    <ion-menu [content]="content" persistent="true" expose-aside-when="large">
+    <ion-menu [content]="content" persistent="true" expose-aside-when="large" *ngIf="!isLogin">
         <ion-header>
             <ion-toolbar>
                 <ion-title>Monero Gives</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content>
-            <ion-list>
+            <ion-list *ngIf="!isAdmin">
                 <button menuClose ion-item *ngFor="let page of pages" (click)="openPage(page)">
                     <side-menu-entry [page]="page"></side-menu-entry>
+                </button>
+            </ion-list>
+            <ion-list *ngIf="isAdmin">
+                <button menuClose ion-item *ngFor="let adminPage of adminPages" (click)="openPage(adminPage)">
+                    <side-menu-entry [page]="adminPage"></side-menu-entry>
                 </button>
             </ion-list>
         </ion-content>

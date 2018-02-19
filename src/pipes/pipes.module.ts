@@ -6,6 +6,11 @@ import { XmrPipe } from './xmr/xmr';
 import { HashToLinkPipe } from './hash-to-link/hash-to-link';
 import { ConvertCurrencyPipe } from './convert-currency/convert-currency';
 import { FromNowPipe } from './from-now/from-now';
+import { WherePipe } from './where/where';
+import { PrettySettingsPipe } from './pretty-settings/pretty-settings';
+import { MainLoopPipe } from './main-loop/main-loop';
+import { PoolTypePipe } from './pool-type/pool-type';
+import { WhereTruePipe } from './where-true/where-true';
 
 @NgModule({
     declarations: [
@@ -14,7 +19,12 @@ import { FromNowPipe } from './from-now/from-now';
         XmrPipe,
         HashToLinkPipe,
         ConvertCurrencyPipe,
-        FromNowPipe
+        FromNowPipe,
+        WherePipe,
+    PrettySettingsPipe,
+    MainLoopPipe,
+    PoolTypePipe,
+    WhereTruePipe
     ],
     imports: [],
     exports: [
@@ -23,7 +33,12 @@ import { FromNowPipe } from './from-now/from-now';
         XmrPipe,
         HashToLinkPipe,
         ConvertCurrencyPipe,
-        FromNowPipe
+        FromNowPipe,
+        WherePipe,
+    PrettySettingsPipe,
+    MainLoopPipe,
+    PoolTypePipe,
+    WhereTruePipe
     ]
 })
 export class PipesModule { }

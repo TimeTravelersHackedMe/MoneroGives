@@ -17,3 +17,17 @@ export interface Block {
 export interface Payment {
     
 }
+
+export interface AuthResponse {
+    msg: string
+}
+
+export interface PageParams {
+    slug: string,
+    title: string,
+    icon: string
+}
+
+export interface Ports {
+    
+}

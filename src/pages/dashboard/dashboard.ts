@@ -6,7 +6,7 @@ import { take } from 'rxjs/operators';
 
 import { Luz } from '../../providers/luz/luz';
 import { CONFIG } from '../../constants/config';
-import { Block, NetworkStats, PoolStats, PoolConfigs } from '../../constants/interfaces';
+import { Block, NetworkStats, PageParams, PoolStats, PoolConfigs } from '../../constants/interfaces';
 
 @IonicPage({
   name: 'dashboard',
@@ -33,11 +33,12 @@ export class DashboardPage implements OnDestroy {
   private poolHistory$: Subscription;
   public poolHistory;
   public firstBlock: Block = localStorage.getItem('firstBlock') === null ? null : JSON.parse(localStorage.getItem('firstBlock'));
-  public page;
+  public page: PageParams = {slug: '', title: '', icon: ''};
 
   constructor(private view: ViewController, private db: AngularFirestore) {
-    console.log('history:', this.networkHistory);
-    this.page = Luz.getPageParams(this.view.id);
+    Luz.getPageParams(this.view.id).then(data => {
+      this.page = data;
+    });
     this.poolStatsDoc = this.db.doc<PoolStats>('pool/stats');
     this.poolStats$ = this.poolStatsDoc.valueChanges().subscribe(data => {
       localStorage.setItem('poolStats', JSON.stringify(data));

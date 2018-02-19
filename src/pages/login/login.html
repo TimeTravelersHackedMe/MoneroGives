@@ -1,0 +1,31 @@
+<ion-content>
+  <div class="overlay" ion-fixed>
+    <div class="outer">
+      <div class="inner">
+        <ion-card class="login-card" no-padding>
+          <ion-card-header>
+            Login
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-label color="primary" floating>Used ID</ion-label>
+              <ion-input [(ngModel)]="user" (keyup.enter)="login()"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary" floating>Password</ion-label>
+              <ion-input type="password" [(ngModel)]="password" (keyup.enter)="login()"></ion-input>
+            </ion-item>
+            <button ion-button icon-start (click)="dashboard()" color="secondary">
+              <ion-icon name="arrow-round-back"></ion-icon>
+              Dashboard
+            </button>
+            <button ion-button icon-end float-right (click)="login()">
+              Login
+              <ion-icon name="log-in"></ion-icon>
+            </button>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+</ion-content>

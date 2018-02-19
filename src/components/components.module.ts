@@ -12,6 +12,7 @@ import { PoolStatsTableComponent } from './pool-stats-table/pool-stats-table';
 import { NetworkStatsTableComponent } from './network-stats-table/network-stats-table';
 import { CenterComponent } from './center/center';
 import { HashOverlayComponent } from './hash-overlay/hash-overlay';
+import { AdminRightMenuComponent } from './admin-right-menu/admin-right-menu';
 
 @NgModule({
 	declarations: [
@@ -22,7 +23,8 @@ import { HashOverlayComponent } from './hash-overlay/hash-overlay';
 		PoolStatsTableComponent,
 		NetworkStatsTableComponent,
 		CenterComponent,
-		HashOverlayComponent
+		HashOverlayComponent,
+    AdminRightMenuComponent
 	],
 	imports: [
 		IonicModule,
@@ -36,7 +38,8 @@ import { HashOverlayComponent } from './hash-overlay/hash-overlay';
 		PoolStatsTableComponent,
 		NetworkStatsTableComponent,
 		CenterComponent,
-		HashOverlayComponent
+		HashOverlayComponent,
+    AdminRightMenuComponent
 	],
 	providers: [
 		HashPipe,

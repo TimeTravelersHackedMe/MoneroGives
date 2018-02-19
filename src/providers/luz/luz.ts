@@ -1,24 +1,31 @@
 import { Injectable } from '@angular/core';
+import { Nav } from 'ionic-angular';
 
 import { PAGES } from '../../constants/pages';
+import { PageParams } from '../../constants/interfaces';
 
 @Injectable()
 export class Luz {
+  static nav: Nav;
 
-  constructor() {}
+  constructor() { }
 
-  static getPageParams(slug) {
-    for(const page of PAGES.LIST) {
-      if(page.slug === slug) {
-        return page;
-      }
-    }
-    console.log('Page slug not found in page list.');
-    return {
-      icon: 'home',
-      slug: 'home',
-      title: 'Home'
-    }
+  static getPageParams(slug, admin?: boolean): Promise<PageParams> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const pageList: Array<PageParams> = admin ? PAGES.ADMIN_LIST : PAGES.LIST;
+        for (const page of pageList) {
+          if (page.slug === slug) {
+            return resolve(page);
+          }
+        }
+        console.error('Page slug not found in page list:', slug);
+        return resolve({
+          icon: 'close',
+          slug: 'home',
+          title: 'Something is Wrong!'
+        });
+      }, 1);
+    });
   }
-
 }

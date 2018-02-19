@@ -1,0 +1,68 @@
+<nav-bar [page]="page"></nav-bar>
+<ion-content padding>
+    <ion-grid #table [hidden]="!workers">
+        <ion-row>
+            <ion-col>
+                <center>Hash Rate</center>
+            </ion-col>
+            <ion-col #addressColumn>
+                <center>Address</center>
+            </ion-col>
+            <ion-col>
+                <center>Paid</center>
+            </ion-col>
+            <ion-col>
+                <center>Due</center>
+            </ion-col>
+            <ion-col>
+                <center>Total Hashes</center>
+            </ion-col>
+            <ion-col>
+                <center>Good Hashes</center>
+            </ion-col>
+            <ion-col>
+                <center>Bad Hashes</center>
+            </ion-col>
+            <ion-col>
+                <center>Workers</center>
+            </ion-col>
+            <ion-col>
+                <center>Last Hash</center>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let worker of workers">
+            <ion-col>
+                <center>{{ worker.hashRate }}</center>
+            </ion-col>
+            <ion-col class="hash-overlay-parent" *ngIf="addressColumn" [style.max-width]="addressColumnWidth + 'px'">
+                <center>
+                    <div [innerHTML]="worker.address"></div>
+                </center>
+                <hash-overlay [style.max-width]="overlayMaxWidthForAddress + 'px'">
+                    <div [innerHTML]="worker.address"></div>
+                </hash-overlay>
+            </ion-col>
+            <ion-col>
+                <center>{{ worker.paid | xmr }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ worker.due | xmr }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ worker.totalHashes }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ worker.goodShares }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ worker.badShares }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ worker.workers.length }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ worker.lastHash }}</center>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

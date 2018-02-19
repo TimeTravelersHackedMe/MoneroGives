@@ -1,4 +1,68 @@
 <nav-bar [page]="page"></nav-bar>
-<ion-content padding>
-
+<ion-content>
+    <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="global">
+            Global
+        </ion-segment-button>
+        <ion-segment-button value="pplns">
+            PPLNS
+        </ion-segment-button>
+        <ion-segment-button value="solo">
+            Solo
+        </ion-segment-button>
+    </ion-segment>
+    <ion-grid padding *ngIf="ports">
+        <ion-row>
+            <ion-col>
+                <center>Server</center>
+            </ion-col>
+            <ion-col>
+                <center>Port</center>
+            </ion-col>
+            <ion-col>
+                <center>Type</center>
+            </ion-col>
+            <ion-col>
+                <center>Difficulty</center>
+            </ion-col>
+            <ion-col>
+                <center>Miners</center>
+            </ion-col>
+            <ion-col>
+                <center>Current Block</center>
+            </ion-col>
+            <ion-col>
+                <center>Current Block Time</center>
+            </ion-col>
+            <ion-col>
+                <center>Description</center>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let port of ports">
+            <ion-col>
+                <center>{{ port.hostname }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ port.port }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ port.poolType }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ port.difficulty }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ port.miners }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ port.blockId }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ port.blockIdTime * 1000 | fromNow }}</center>
+            </ion-col>
+            <ion-col>
+                <center>{{ port.description }}</center>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
