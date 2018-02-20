@@ -11,7 +11,7 @@ export class AdminDataProvider {
 
   private headers() {
     const token = this.validate();
-    if(token) {
+    if (token) {
       return {
         headers: new HttpHeaders().set('x-access-token', token)
       }
@@ -32,7 +32,7 @@ export class AdminDataProvider {
 
   settings(category?: string) {
     const headers = this.headers();
-    if(headers) {
+    if (headers) {
       return this.http.get(CONFIG.admin.settings, headers);
     }
   }
@@ -42,6 +42,14 @@ export class AdminDataProvider {
     if (headers) {
       return this.http.get(CONFIG.admin.workers, headers);
     }
+  }
+
+  saveSetting(id, value) {
+    const headers: any = this.headers();
+    return this.http.put(CONFIG.admin.settings, {
+      id: id,
+      value: value
+    }, headers);
   }
 
 }

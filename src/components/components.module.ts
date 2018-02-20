@@ -13,6 +13,7 @@ import { NetworkStatsTableComponent } from './network-stats-table/network-stats-
 import { CenterComponent } from './center/center';
 import { HashOverlayComponent } from './hash-overlay/hash-overlay';
 import { AdminRightMenuComponent } from './admin-right-menu/admin-right-menu';
+import { SaveSettingsBarComponent } from './save-settings-bar/save-settings-bar';
 
 @NgModule({
 	declarations: [
@@ -24,7 +25,8 @@ import { AdminRightMenuComponent } from './admin-right-menu/admin-right-menu';
 		NetworkStatsTableComponent,
 		CenterComponent,
 		HashOverlayComponent,
-    AdminRightMenuComponent
+    AdminRightMenuComponent,
+    SaveSettingsBarComponent
 	],
 	imports: [
 		IonicModule,
@@ -39,7 +41,8 @@ import { AdminRightMenuComponent } from './admin-right-menu/admin-right-menu';
 		NetworkStatsTableComponent,
 		CenterComponent,
 		HashOverlayComponent,
-    AdminRightMenuComponent
+    AdminRightMenuComponent,
+    SaveSettingsBarComponent
 	],
 	providers: [
 		HashPipe,

@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IonicPage, ViewController } from 'ionic-angular';
+import { IonicPage, ToastController, ViewController } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AuthProvider } from '../../providers/auth/auth';
@@ -23,9 +23,9 @@ export class AdminSettingsPage implements OnDestroy {
   private settings$;
   private settings;
   private modules;
-  private virtualSettings = {};
+  private virtualSettings: any = false;
 
-  constructor(private auth: AuthProvider, private data: AdminDataProvider, private view: ViewController) {
+  constructor(private toast: ToastController, private auth: AuthProvider, private data: AdminDataProvider, private view: ViewController) {
     Luz.getPageParams(this.view.id, true).then(data => {
       this.page = data;
     });
@@ -41,15 +41,45 @@ export class AdminSettingsPage implements OnDestroy {
   segmentChanged(event) {
     localStorage.setItem('defaultSettingsView', JSON.stringify(event.value));
     this.settings$.unsubscribe();
+    this.virtualSettings = false;
     this.settings$ = this.data.settings(this.segment).subscribe(data => {
       this.modules = CONFIG.admin.modules[this.segment];
       this.settings = data;
     });
   }
 
-  updateVirtualSettings(setting, $event) {
+  updateVirtualSettings(setting, value) {
+    console.log(value);
+    if (this.virtualSettings === false) this.virtualSettings = {};
     this.virtualSettings[setting.id] = {
-      value: $event.target.value
+      value: value
+    }
+  }
+
+  async saveSettings() {
+    try {
+      let promises = [];
+      for (const setting in this.virtualSettings) {
+        promises.push(await this.data.saveSetting(setting, this.virtualSettings[setting].value).subscribe(data => {
+          console.log(data);
+        }));
+      }
+      await Promise.all(promises);
+      const message = this.toast.create({
+        message: 'The settings were successfully saved.',
+        duration: 3500,
+        position: 'middle'
+      });
+      message.present();
+      this.virtualSettings = false;
+    } catch (e) {
+      console.error('saveSettings() error: ', e);
+      const message = this.toast.create({
+        message: 'There was an error saving the settings. Check the console for more details.',
+        duration: 3500,
+        position: 'middle'
+      });
+      message.present();
     }
   }
 
