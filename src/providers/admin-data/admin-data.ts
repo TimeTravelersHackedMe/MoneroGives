@@ -30,6 +30,13 @@ export class AdminDataProvider {
     }
   }
 
+  ports(segment) {
+    const headers = this.headers();
+    if(headers) {
+      return this.http.get(CONFIG.admin.ports, headers);
+    }
+  }
+
   settings(category?: string) {
     const headers = this.headers();
     if (headers) {

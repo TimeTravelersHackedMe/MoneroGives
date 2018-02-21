@@ -11,6 +11,7 @@ export const CONFIG = {
     },
     admin: {
         auth: API_URL + '/authenticate',
+        ports: API_URL + '/admin/ports',
         settings: API_URL + '/admin/config',
         workers: API_URL + '/admin/userList',
         modules: {
