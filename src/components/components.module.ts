@@ -14,6 +14,7 @@ import { CenterComponent } from './center/center';
 import { HashOverlayComponent } from './hash-overlay/hash-overlay';
 import { AdminRightMenuComponent } from './admin-right-menu/admin-right-menu';
 import { SaveSettingsBarComponent } from './save-settings-bar/save-settings-bar';
+import { EditSettingComponent } from './edit-setting/edit-setting';
 
 @NgModule({
 	declarations: [
@@ -26,7 +27,8 @@ import { SaveSettingsBarComponent } from './save-settings-bar/save-settings-bar'
 		CenterComponent,
 		HashOverlayComponent,
     AdminRightMenuComponent,
-    SaveSettingsBarComponent
+    SaveSettingsBarComponent,
+    EditSettingComponent
 	],
 	imports: [
 		IonicModule,
@@ -42,7 +44,8 @@ import { SaveSettingsBarComponent } from './save-settings-bar/save-settings-bar'
 		CenterComponent,
 		HashOverlayComponent,
     AdminRightMenuComponent,
-    SaveSettingsBarComponent
+    SaveSettingsBarComponent,
+    EditSettingComponent
 	],
 	providers: [
 		HashPipe,

@@ -51,6 +51,11 @@ export class AdminDataProvider {
     }
   }
 
+  savePort(data) {
+    const headers: any = this.headers();
+    return this.http.put(CONFIG.admin.ports, data, headers);
+  }
+
   saveSetting(id, value) {
     const headers: any = this.headers();
     return this.http.put(CONFIG.admin.settings, {

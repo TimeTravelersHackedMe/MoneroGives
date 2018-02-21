@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IonicPage, ToastController, ViewController } from 'ionic-angular';
+import { IonicPage, ModalController, ToastController, ViewController } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AuthProvider } from '../../providers/auth/auth';

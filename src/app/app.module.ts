@@ -15,7 +15,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { MinerProvider } from '../providers/miner/miner';
 import { AuthProvider } from '../providers/auth/auth';
 import { AdminDataProvider } from '../providers/admin-data/admin-data';
-
+import { EditSettingComponent } from '../components/edit-setting/edit-setting';
 
 /// please don't mess with this database.. you can use it for sample data if you want to run a test app
 const firebaseConfig = {
@@ -45,7 +45,8 @@ const firebaseConfig = {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    EditSettingComponent
   ],
   providers: [
     AngularFirestore,

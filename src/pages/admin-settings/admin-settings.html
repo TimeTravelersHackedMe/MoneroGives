@@ -42,25 +42,25 @@
       <ng-container [ngSwitch]="setting.type">
         <ion-col *ngSwitchCase="'bool'">
           <ion-item>
-            <ion-label>{{ setting.id | prettySettings }}</ion-label>
+            <ion-label color="primary">{{ setting.id | prettySettings }}</ion-label>
             <ion-toggle [ngModel]="setting.value === '1' ? true : false" (ionChange)="updateVirtualSettings(setting, $event.checked)"></ion-toggle>
           </ion-item>
         </ion-col>
         <ion-col *ngSwitchCase="'int'">
           <ion-item>
-            <ion-label color="primary" stacked>{{ setting.id | prettySettings }}</ion-label>
+            <ion-label color="primary" floating>{{ setting.id | prettySettings }}</ion-label>
             <ion-input type="number" [ngModel]="setting.value" (input)="updateVirtualSettings(setting, $event.target.value)"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col *ngSwitchCase="'string'">
           <ion-item>
-            <ion-label color="primary" stacked>{{ setting.id | prettySettings }}</ion-label>
+            <ion-label color="primary" floating>{{ setting.id | prettySettings }}</ion-label>
             <ion-input [ngModel]="setting.value" (input)="updateVirtualSettings(setting, $event.target.value)"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col *ngSwitchCase="'float'">
           <ion-item>
-            <ion-label color="primary" stacked>{{ setting.id | prettySettings }}</ion-label>
+            <ion-label color="primary" floating>{{ setting.id | prettySettings }}</ion-label>
             <ion-input type="number" step="0.01" [ngModel]="setting.value" (input)="updateVirtualSettings(setting, $event.target.value)"></ion-input>
           </ion-item>
         </ion-col>

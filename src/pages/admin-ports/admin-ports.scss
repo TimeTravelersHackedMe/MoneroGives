@@ -6,4 +6,17 @@ page-admin-ports {
         @extend %table-row-cases;
         @extend %table-header;
     }
+
+    .edit-port {
+        transition: all 0.333s ease-in-out;
+        cursor: pointer;
+    }
+
+    .edit-port:hover {
+        color: rgba(0,0,0,0.67)
+    }
+
+    .edit-port:active {
+        color: rgba(0,0,0,0.44);
+    }
 }

@@ -1,0 +1,21 @@
+edit-setting {
+    ion-card {
+        height: 100%;
+    }
+    .modal-close {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        button {
+            transition: all 0.333s ease-in-out;
+            background-color: white;
+            font-size: 2.4rem;
+        }
+        button:hover {
+            color: rgba(0,0,0,0.67);
+        }
+        button:active {
+            color: rgba(0,0,0,0.44);
+        }
+    }
+}

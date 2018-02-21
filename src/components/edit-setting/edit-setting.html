@@ -1,0 +1,76 @@
+<ion-card>
+  <div class="modal-close">
+    <button (click)="close()">
+      <ion-icon name="close"></ion-icon>
+    </button>
+  </div>
+  <ion-card-header>Edit Port</ion-card-header>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="primary" floating>Port</ion-label>
+            <ion-input [(ngModel)]="data.port"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="primary" floating>Description</ion-label>
+            <ion-input [(ngModel)]="data.desc"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="primary" floating>Difficulty</ion-label>
+            <ion-input [(ngModel)]="data.diff"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="primary" floating>Pool Type</ion-label>
+            <ion-select [(ngModel)]="data.portType">
+              <ion-option value="pplns">PPLNS</ion-option>
+              <ion-option value="pps">PPS</ion-option>
+              <ion-option value="solo">Solo</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Hidden</ion-label>
+            <ion-checkbox [(ngModel)]="data.hidden"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>SSL</ion-label>
+            <ion-checkbox [(ngModel)]="data.ssl"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-start float-left color="light" (click)="close()">
+            <ion-icon name="arrow-back"></ion-icon>
+            Port Settings
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-end float-right (click)="save()">
+            Save Settings
+            <ion-icon name="document"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

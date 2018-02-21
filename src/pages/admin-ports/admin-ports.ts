@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, ViewController } from 'ionic-angular';
+import { IonicPage, ModalController, ViewController } from 'ionic-angular';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Subscription } from 'rxjs/Subscription';
+import { NavParams } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { Luz } from '../../providers/luz/luz';
 import { PageParams } from '../../constants/interfaces';
 import { AdminDataProvider } from '../../providers/admin-data/admin-data';
+import { EditSettingComponent } from '../../components/edit-setting/edit-setting';
 
 @IonicPage({
   name: 'admin/ports',
@@ -23,7 +25,7 @@ export class AdminPortsPage {
   public segment: string = localStorage.getItem('adminPortSegment') === null ? 'global' : JSON.parse(localStorage.getItem('adminPortSegment'));
   public page: PageParams = { slug: '', title: '', icon: '' };
 
-  constructor(private auth: AuthProvider, private data: AdminDataProvider, private view: ViewController) {
+  constructor(private auth: AuthProvider, private data: AdminDataProvider, private modal: ModalController, private view: ViewController) {
     Luz.getPageParams(this.view.id, true).then(data => {
       this.page = data;
     });
@@ -42,6 +44,11 @@ export class AdminPortsPage {
       localStorage.setItem('adminPorts', JSON.stringify(data));
       this.ports = data;
     });
+  }
+
+  editSetting(setting) {
+    const modal = this.modal.create(EditSettingComponent, setting);
+    modal.present();
   }
 
   ionViewCanEnter() {

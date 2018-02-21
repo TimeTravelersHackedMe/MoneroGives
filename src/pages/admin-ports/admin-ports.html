@@ -13,6 +13,8 @@
     </ion-segment>
     <ion-grid padding *ngIf="ports">
         <ion-row>
+            <ion-col class="icon-column no-background">
+            </ion-col>
             <ion-col>
                 <center>Port</center>
             </ion-col>
@@ -33,6 +35,9 @@
             </ion-col>
         </ion-row>
         <ion-row *ngFor="let port of ports">
+            <ion-col class="icon-column no-background">
+                <center class="edit-port" (click)="editSetting(port)"><ion-icon name="build"></ion-icon></center>
+            </ion-col>
             <ion-col>
                 <center>{{ port.port }}</center>
             </ion-col>
