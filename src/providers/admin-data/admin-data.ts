@@ -37,6 +37,13 @@ export class AdminDataProvider {
     }
   }
 
+  deletePort(data) {
+    const headers = this.headers();
+    if(headers) {
+      return this.http.delete(CONFIG.admin.ports, headers);
+    }
+  }
+
   settings(category?: string) {
     const headers = this.headers();
     if (headers) {

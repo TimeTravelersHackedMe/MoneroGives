@@ -14,4 +14,15 @@ export class AdminPortSetting {
         this.portType = this.data.portType;
         this.ssl = this.data.ssl;
     }
+
+    get portData() {
+        return {
+            desc: this.desc,
+            diff: this.diff,
+            hidden: this.hidden ? 1 : 0,
+            port: this.port,
+            portType: this.portType,
+            ssl: this.ssl ? 1 : 0
+        }
+    }
 }

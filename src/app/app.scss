@@ -164,6 +164,9 @@ $table-row-height: 50px;
   overflow: hidden;
   max-width: 100%;
 }
+.item-input > .item-inner {
+  border-bottom: 1px solid #d8d8d8 !important;
+}
 
 .hover-expand * {
   text-overflow: ellipsis;
@@ -198,6 +201,31 @@ ion-card-header {
     position: absolute;
     z-index: 9999;
   }
+}
+
+.small-column {
+  max-width: 111px;
+}
+
+.medium-column {
+  max-width: 167px;
+}
+
+@media only screen and (min-height: 768px) and (min-width: 768px) {
+  .modal-wrapper {
+    height: 500px;
+  }
+}
+
+.underline {
+  margin-top: 14px;
+  position: relative;
+  top: 14px;
+  height: 4px;
+  width: 69px;
+  margin: 0 auto;
+  display: block;
+  background-color: map-get($colors, primary);
 }
 
 @media (min-width: map-get($grid-breakpoints, lg)) {

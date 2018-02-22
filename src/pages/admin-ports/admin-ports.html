@@ -11,51 +11,72 @@
             Solo
         </ion-segment-button>
     </ion-segment>
-    <ion-grid padding *ngIf="ports">
+    <ion-grid padding *ngIf="ports | where: { id: 'portType', value: segment === 'global' ? ['pplns', 'pps', 'solo'] : [segment] } | hasLength; else noPorts">
         <ion-row>
             <ion-col class="icon-column no-background">
             </ion-col>
-            <ion-col>
+            <ion-col class="small-column">
                 <center>Port</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="small-column">
                 <center>Difficulty</center>
             </ion-col>
             <ion-col>
                 <center>Description</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="small-column" *ngIf="segment === 'global'">
                 <center>Type</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="icon-column" style="max-width: 80px;">
                 <center>Hidden</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="icon-column">
                 <center>SSL</center>
             </ion-col>
         </ion-row>
-        <ion-row *ngFor="let port of ports">
+        <ion-row *ngFor="let port of ports | where: { id: 'portType', value: segment === 'global' ? ['pplns', 'pps', 'solo'] : [segment] }">
             <ion-col class="icon-column no-background">
-                <center class="edit-port" (click)="editSetting(port)"><ion-icon name="build"></ion-icon></center>
+                <center class="edit-port" (click)="editSetting(port)">
+                    <ion-icon name="build"></ion-icon>
+                </center>
             </ion-col>
-            <ion-col>
+            <ion-col class="small-column">
                 <center>{{ port.port }}</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="small-column">
                 <center>{{ port.diff }}</center>
             </ion-col>
             <ion-col>
                 <center>{{ port.desc }}</center>
             </ion-col>
-            <ion-col>
-                <center>{{ port.portType }}</center>
+            <ion-col class="small-column" *ngIf="segment === 'global'">
+                <center>{{ port.portType | prettyPortType }}</center>
             </ion-col>
-            <ion-col>
-                <center>{{ port.hidden }}</center>
+            <ion-col class="icon-column" style="max-width: 80px;">
+                <center>
+                    <ion-icon name="{{ port.hidden ? 'checkmark-circle' : 'close' }}"></ion-icon>
+                </center>
             </ion-col>
-            <ion-col>
-                <center>{{ port.ssl }}</center>
+            <ion-col class="icon-column">
+                <center>
+                    <ion-icon name="{{ port.ssl ? 'checkmark-circle' : 'close' }}"></ion-icon>
+                </center>
             </ion-col>
         </ion-row>
     </ion-grid>
+    <ng-template #noPorts>
+        <ion-row>
+            <ion-col>
+                <h5 ion-text color="dark" text-center>There are currently no {{ segment | prettyPortType }} ports set up.</h5>
+            </ion-col>
+        </ion-row>
+    </ng-template>
+    <ion-row>
+        <ion-col text-center>
+            <button ion-button icon-end (click)="newPort()" color="light">
+                Add New Port
+                <ion-icon name="add"></ion-icon>
+            </button>
+        </ion-col>
+    </ion-row>
 </ion-content>

@@ -8,6 +8,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
 import { Chart } from 'chart.js';
 import * as moment from 'moment';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
@@ -16,6 +17,7 @@ import { MinerProvider } from '../providers/miner/miner';
 import { AuthProvider } from '../providers/auth/auth';
 import { AdminDataProvider } from '../providers/admin-data/admin-data';
 import { EditSettingComponent } from '../components/edit-setting/edit-setting';
+import { HttpErrorInterceptor } from '../providers/http-interceptor/http-interceptor';
 
 /// please don't mess with this database.. you can use it for sample data if you want to run a test app
 const firebaseConfig = {
@@ -55,7 +57,8 @@ const firebaseConfig = {
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     MinerProvider,
     AuthProvider,
-    AdminDataProvider
+    AdminDataProvider,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi:true}
   ]
 })
 export class AppModule {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, ModalController, ViewController } from 'ionic-angular';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Subscription } from 'rxjs/Subscription';
@@ -11,14 +11,14 @@ import { AdminDataProvider } from '../../providers/admin-data/admin-data';
 import { EditSettingComponent } from '../../components/edit-setting/edit-setting';
 
 @IonicPage({
-  name: 'admin/ports',
-  segment: 'admin/ports'
+  name: 'admin/manage-ports',
+  segment: 'admin/manage-ports'
 })
 @Component({
   selector: 'page-admin-ports',
   templateUrl: 'admin-ports.html',
 })
-export class AdminPortsPage {
+export class AdminPortsPage implements OnDestroy {
   public isAdmin: boolean = false;
   private ports$: Subscription;
   public ports: any = localStorage.getItem('adminPorts') === null ? null : JSON.parse(localStorage.getItem('adminPorts'));
@@ -33,6 +33,7 @@ export class AdminPortsPage {
     this.ports$ = this.data.ports(this.segment).subscribe(data => {
       localStorage.setItem('adminPorts', JSON.stringify(data));
       this.ports = data;
+      console.log(data);
     });
   }
 
@@ -51,7 +52,13 @@ export class AdminPortsPage {
     modal.present();
   }
 
+  newPort() {
+    const modal = this.modal.create(EditSettingComponent, {new: true});
+    modal.present();
+  }
+
   ionViewCanEnter() {
+    console.log(this.isAdmin);
     if (this.isAdmin) {
       return true;
     } else {
@@ -59,6 +66,10 @@ export class AdminPortsPage {
         Luz.nav.setRoot('login');
       }, 1);
     }
+  }
+
+  ngOnDestroy() {
+    this.ports$.unsubscribe();
   }
 
 }

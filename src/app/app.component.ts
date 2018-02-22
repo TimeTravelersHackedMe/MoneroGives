@@ -36,7 +36,11 @@ export class MyApp implements OnInit {
   }
 
   openPage(page) {
-    this.nav.setRoot(page.slug);
+    if(page.subpage) {
+      this.nav.setRoot(page.slug, {subpage: page.subpage});
+    } else {
+      this.nav.setRoot(page.slug);
+    }
   }
 
   ngOnInit() {

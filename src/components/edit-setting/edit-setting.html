@@ -4,14 +4,14 @@
       <ion-icon name="close"></ion-icon>
     </button>
   </div>
-  <ion-card-header>Edit Port</ion-card-header>
+  <ion-card-header>{{ isNew ? 'Add New Port' : 'Edit Port' }}<div class="underline"></div></ion-card-header>
   <ion-card-content>
     <ion-grid>
       <ion-row>
         <ion-col>
           <ion-item>
             <ion-label color="primary" floating>Port</ion-label>
-            <ion-input [(ngModel)]="data.port"></ion-input>
+            <ion-input type="number" [(ngModel)]="data.port"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -27,7 +27,7 @@
         <ion-col>
           <ion-item>
             <ion-label color="primary" floating>Difficulty</ion-label>
-            <ion-input [(ngModel)]="data.diff"></ion-input>
+            <ion-input type="number" [(ngModel)]="data.diff"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -59,14 +59,14 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <button ion-button icon-start float-left color="light" (click)="close()">
-            <ion-icon name="arrow-back"></ion-icon>
-            Port Settings
-          </button>
+          <!--<button ion-button icon-start float-left color="danger" (click)="close()">
+            <ion-icon name="trash"></ion-icon>
+            Delete / Not working
+          </button>-->
         </ion-col>
         <ion-col>
           <button ion-button icon-end float-right (click)="save()">
-            Save Settings
+            Save
             <ion-icon name="document"></ion-icon>
           </button>
         </ion-col>

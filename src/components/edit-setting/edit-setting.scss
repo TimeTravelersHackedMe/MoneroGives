@@ -1,11 +1,15 @@
 edit-setting {
     ion-card {
         height: 100%;
+        ion-card-header {
+            padding-top: 2.4rem !important;
+            font-size: 2.4rem !important;
+        }
     }
     .modal-close {
         position: absolute;
-        right: 8px;
-        top: 8px;
+        right: 14px;
+        top: 14px;
         button {
             transition: all 0.333s ease-in-out;
             background-color: white;

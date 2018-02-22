@@ -66,5 +66,35 @@
         </ion-col>
       </ng-container>
     </ion-row>
+    <ion-card col-12 *ngIf="segment === 'pool'">
+        <ion-card-header>
+          Pool Wallet
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row>
+            <ion-col *ngFor="let setting of settings | whereTrue: 'poolWallet'">
+              <ion-item>
+                <ion-label floating>{{ setting.id | prettySettings }}</ion-label>
+                <ion-input [ngModel]="setting.value" (ionChange)="updateVirtualSettings(setting, $event.target.value)"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+      <ion-card col-12 *ngIf="segment === 'payout'">
+          <ion-card-header>
+            Fee Wallet
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col *ngFor="let setting of settings | whereTrue: 'feeWallet'">
+                <ion-item>
+                  <ion-label floating>{{ setting.id | prettySettings }}</ion-label>
+                  <ion-input [ngModel]="setting.value" (ionChange)="updateVirtualSettings(setting, $event.target.value)"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
   </ion-grid>
 </ion-content>

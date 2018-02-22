@@ -66,16 +66,24 @@ export const SETTINGS = {
         title: 'Bitcoin Fee'
     },
     23: {
-        title: 'PPS Fee'
+        title: 'PPS Fee',
+        fee: true,
+        mainLoop: false
     },
     24: {
-        title: 'PPLNS Fee'
+        title: 'PPLNS Fee',
+        fee: true,
+        mainLoop: false
     },
     25: {
-        title: 'Prop Fee'
+        title: 'Prop Fee',
+        fee: true,
+        mainLoop: false
     },
     26: {
-        title: 'Solo Fee'
+        title: 'Solo Fee',
+        fee: true,
+        mainLoop: false
     },
     27: {
         title: 'Exchange Minimum'
@@ -140,22 +148,37 @@ export const SETTINGS = {
         title: 'Block Cleaner'
     },
     47: {
-        title: 'Pool Wallet Address'
+        title: 'Pool Wallet Address',
+        poolWallet: true,
+        mainLoop: false
     },
     48: {
-        title: 'Fee Wallet Address'
+        title: 'Fee Wallet Address',
+        feeWallet: true,
+        mainLoop: false
     },
     49: {
-        title: 'Mailgun API Key'
+        title: 'Mailgun API Key',
+        email: true,
+        mainLoop: false,
+        order: 2
     },
     50: {
-        title: 'Mailgun URL'
+        title: 'Mailgun URL',
+        email: true,
+        mainLoop: false,
+        order: 1
     },
     51: {
-        title: 'Mailgun Sender E-mail Address'
+        title: 'Mailgun Sender E-mail Address',
+        email: true,
+        mainLoop: false,
+        order: 3
     },
     52: {
-        title: 'Enable Test Network'
+        title: 'Enable Test Network',
+        testnet: true,
+        mainLoop: false
     },
     53: {
         title: 'PPLNS',
@@ -186,13 +209,22 @@ export const SETTINGS = {
         title: 'API URL'
     },
     61: {
-        title: 'E-mail Body Sent to Stopped Worker'
+        title: 'E-mail Body Sent to Stopped Worker',
+        email: true,
+        mainLoop: false,
+        order: 5
     },
     62: {
-        title: 'E-mail Header Sent to Stopped Worker'
+        title: 'E-mail Header Sent to Stopped Worker',
+        email: true,
+        mainLoop: false,
+        order: 4
     },
     63: {
-        title: 'E-mail Signature'
+        title: 'E-mail Signature',
+        email: true,
+        mainLoop: false,
+        order: 6
     },
     64: {
         title: 'Payout Timer'
@@ -204,9 +236,20 @@ export const SETTINGS = {
         title: 'Payout Priority'
     },
     67: {
-        title: 'Authentication Key'
+        title: 'Authentication Key',
+        mainLoop: false,
+        auth: true
     },
     68: {
-        title: 'Secret Key'
+        title: 'Secret Key',
+        mainLoop: false,
+        auth: true
     }
+}
+
+export const PORT_TYPES = {
+    'pplns': 'PPLNS',
+    'pps': 'PPS',
+    'solo': 'Solo',
+    'global': 'Global'
 }

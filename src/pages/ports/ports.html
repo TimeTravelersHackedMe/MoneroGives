@@ -11,58 +11,102 @@
             Solo
         </ion-segment-button>
     </ion-segment>
-    <ion-grid padding *ngIf="ports">
+    <ion-grid padding *ngIf="ports | hasLength; else noPorts">
         <ion-row>
-            <ion-col>
+            <ion-col class="medium-column">
                 <center>Server</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="small-column">
                 <center>Port</center>
             </ion-col>
-            <ion-col>
-                <center>Type</center>
-            </ion-col>
-            <ion-col>
+            <ion-col class="small-column">
                 <center>Difficulty</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="small-column">
                 <center>Miners</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="medium-column">
                 <center>Current Block</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="medium-column">
                 <center>Current Block Time</center>
             </ion-col>
             <ion-col>
                 <center>Description</center>
             </ion-col>
+            <ion-col *ngIf="segment === 'global'" class="small-column">
+                <center>Type</center>
+            </ion-col>
         </ion-row>
         <ion-row *ngFor="let port of ports">
-            <ion-col>
+            <ion-col class="medium-column">
                 <center>{{ port.hostname }}</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="small-column">
                 <center>{{ port.port }}</center>
             </ion-col>
-            <ion-col>
-                <center>{{ port.poolType }}</center>
-            </ion-col>
-            <ion-col>
+            <ion-col class="small-column">
                 <center>{{ port.difficulty }}</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="small-column">
                 <center>{{ port.miners }}</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="medium-column">
                 <center>{{ port.blockId }}</center>
             </ion-col>
-            <ion-col>
+            <ion-col class="medium-column">
                 <center>{{ port.blockIdTime * 1000 | fromNow }}</center>
             </ion-col>
             <ion-col>
                 <center>{{ port.description }}</center>
             </ion-col>
+            <ion-col *ngIf="segment === 'global'" class="small-column">
+                <center>{{ port.poolType | prettyPortType }}</center>
+            </ion-col>
         </ion-row>
     </ion-grid>
+    <!--<h2>4 Mobile</h2>
+    <ion-row>
+        <ion-col *ngFor="let port of ports" col-lg-4 col-md-6 col-sm-6 col-xs-12>
+            <ion-card>
+                <ion-card-header>{{ port.hostname }}:{{ port.port }}</ion-card-header>
+                <ion-card-content>
+                    <ion-row *ngIf="segment === 'global'">
+                        <ion-col text-right>
+                            <strong>Type:</strong>
+                        </ion-col>
+                        <ion-col>{{ port.poolType | prettyPortType }}</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col text-right>Difficulty:</ion-col>
+                        <ion-col>{{ port.difficulty }}</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col text-right>Miners:</ion-col>
+                        <ion-col>{{ port.miners }}</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col text-right>Current Block:</ion-col>
+                        <ion-col>{{ port.blockId }}</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col text-right>Current Block Time:</ion-col>
+                        <ion-col>{{ port.blockIdTime * 1000 | fromNow }}</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col text-right>Description:</ion-col>
+                        <ion-col>{{ port.description }}</ion-col>
+                    </ion-row>
+                    <ion-row></ion-row>
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+    </ion-row>-->
+    <ng-template #noPorts>
+        <ion-row *ngIf="hasData">
+            <ion-col>
+                <h5 ion-text color="dark" text-center>There are currently no {{ segment | prettyPortType }} ports set up.</h5>
+            </ion-col>
+        </ion-row>
+    </ng-template>
 </ion-content>

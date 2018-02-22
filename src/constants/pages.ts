@@ -18,6 +18,7 @@ export const PAGES = {
         {
             title: 'Ports',
             slug: 'ports',
+            subpage: 'global',
             icon: 'git-pull-request'
         },
         {
@@ -49,7 +50,7 @@ export const PAGES = {
         },
         {
             title: 'Ports',
-            slug: 'admin/ports',
+            slug: 'admin/manage-ports',
             icon: 'git-pull-request'
         },
         {
