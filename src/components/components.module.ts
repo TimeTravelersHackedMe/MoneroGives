@@ -15,6 +15,7 @@ import { HashOverlayComponent } from './hash-overlay/hash-overlay';
 import { AdminRightMenuComponent } from './admin-right-menu/admin-right-menu';
 import { SaveSettingsBarComponent } from './save-settings-bar/save-settings-bar';
 import { EditSettingComponent } from './edit-setting/edit-setting';
+import { CurrencyChartComponent } from './currency-chart/currency-chart';
 
 @NgModule({
 	declarations: [
@@ -28,7 +29,8 @@ import { EditSettingComponent } from './edit-setting/edit-setting';
 		HashOverlayComponent,
     AdminRightMenuComponent,
     SaveSettingsBarComponent,
-    EditSettingComponent
+    EditSettingComponent,
+    CurrencyChartComponent
 	],
 	imports: [
 		IonicModule,
@@ -45,7 +47,8 @@ import { EditSettingComponent } from './edit-setting/edit-setting';
 		HashOverlayComponent,
     AdminRightMenuComponent,
     SaveSettingsBarComponent,
-    EditSettingComponent
+    EditSettingComponent,
+    CurrencyChartComponent
 	],
 	providers: [
 		HashPipe,

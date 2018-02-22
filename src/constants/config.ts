@@ -20,5 +20,6 @@ export const CONFIG = {
             server: ['daemon', 'wallet', 'rpc', 'api'],
             email: ['general', 'email']
         }
-    }
+    },
+    exchange: 'https://monero.gives/exchange/'
 }

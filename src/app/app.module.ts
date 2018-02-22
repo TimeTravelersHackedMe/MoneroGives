@@ -18,6 +18,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { AdminDataProvider } from '../providers/admin-data/admin-data';
 import { EditSettingComponent } from '../components/edit-setting/edit-setting';
 import { HttpErrorInterceptor } from '../providers/http-interceptor/http-interceptor';
+import { DataProvider } from '../providers/data/data';
 
 /// please don't mess with this database.. you can use it for sample data if you want to run a test app
 const firebaseConfig = {
@@ -58,7 +59,8 @@ const firebaseConfig = {
     MinerProvider,
     AuthProvider,
     AdminDataProvider,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi:true}
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi:true},
+    DataProvider
   ]
 })
 export class AppModule {

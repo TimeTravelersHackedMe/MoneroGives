@@ -2,7 +2,6 @@ import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, ViewController } from 'ionic-angular';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Subscription } from 'rxjs/Subscription';
-import { take } from 'rxjs/operators';
 
 import { Luz } from '../../providers/luz/luz';
 import { CONFIG } from '../../constants/config';
@@ -64,9 +63,8 @@ export class DashboardPage implements OnDestroy {
       localStorage.setItem('poolHistory', JSON.stringify(data));
       this.poolHistory = data;
     });
-    this.db.collection('blocks', ref => ref.orderBy('ts', 'desc').limit(1)).valueChanges().pipe(take(1)).subscribe(data => {
+    this.db.collection('blocks', ref => ref.orderBy('ts', 'desc').limit(1)).valueChanges().subscribe(data => {
       localStorage.setItem('firstBlock', JSON.stringify(data[0]));
-      console.log(data[0]);
       this.firstBlock = data[0];
     });
   }
