@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, AfterViewInit, OnChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnChanges, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
@@ -14,7 +14,7 @@ import { CONFIG } from '../../constants/config';
   selector: 'currency-chart',
   templateUrl: 'currency-chart.html'
 })
-export class CurrencyChartComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class CurrencyChartComponent implements OnChanges, OnDestroy {
   @Input('coin') coin: string = 'XMR';
   @Input('fiats') fiats: Array<string> = ['USD'];
   @Input('hours') hours: number = 24 * 5;
