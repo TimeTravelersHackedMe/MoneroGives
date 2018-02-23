@@ -1,3 +1,19 @@
 currency-chart {
-
+    .multi-card-stat {
+        font-size: 24px;
+        font-weight: 700;
+    }
+    ion-icon {
+        transition: all 0.333s ease-in-out;
+    }
+    .ion-md-arrow-dropdown {
+        color: map-get($material, red);
+    }
+    .ion-md-arrow-dropup {
+        color: map-get($material, green);
+    }
+    .bitcoin-logo {
+        font-size: 2.4rem;
+        margin-right: 1px;
+    }
 }

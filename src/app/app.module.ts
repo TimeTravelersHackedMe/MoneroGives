@@ -9,6 +9,7 @@ import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore
 import { Chart } from 'chart.js';
 import * as moment from 'moment';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Ng2OdometerModule } from 'ng2-odometer';
 
 import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
@@ -44,7 +45,8 @@ const firebaseConfig = {
     }),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2OdometerModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -66,7 +68,7 @@ const firebaseConfig = {
 export class AppModule {
   constructor() {
     moment.relativeTimeThreshold('m', 60);
-    moment.relativeTimeThreshold('h', 24 * 26);
+    moment.relativeTimeThreshold('h', 24 * 3);
     Chart.defaults.global.defaultFontColor = 'red';
     Chart.defaults.global.defaultFontFamily = 'Montserrat';
   }

@@ -33,6 +33,9 @@ export class DashboardPage implements OnDestroy {
   public poolHistory;
   public firstBlock: Block = localStorage.getItem('firstBlock') === null ? null : JSON.parse(localStorage.getItem('firstBlock'));
   public page: PageParams = {slug: '', title: '', icon: ''};
+  private segment: string = localStorage.getItem('dashboardSegment') === null ? 'monero' : JSON.parse(localStorage.getItem('dashboardSegment'));
+  private fiats: Array<string> = ['USD', 'BTC', 'EUR'];
+  private coin: string = 'XMR';
 
   constructor(private view: ViewController, private db: AngularFirestore) {
     Luz.getPageParams(this.view.id).then(data => {
@@ -58,15 +61,21 @@ export class DashboardPage implements OnDestroy {
       localStorage.setItem('networkHistory', JSON.stringify(data));
       this.networkHistory = data;
     });
-    this.poolHistoryCollection = this.db.collection('pool/stats/history', ref => ref.where('historyCount', '==', 50).where('updateTime', '>', new Date().getTime() - CONFIG.poolStats.range));
+    this.poolHistoryCollection = this.db.collection('pool/stats/poolStatsHistory', ref => ref.where('historyCount', '==', 1).where('updateTime', '>', new Date().getTime() - CONFIG.poolStats.range));
     this.poolHistory$ = this.poolHistoryCollection.valueChanges().subscribe(data => {
       localStorage.setItem('poolHistory', JSON.stringify(data));
+      console.log(data);
       this.poolHistory = data;
     });
     this.db.collection('blocks', ref => ref.orderBy('ts', 'desc').limit(1)).valueChanges().subscribe(data => {
       localStorage.setItem('firstBlock', JSON.stringify(data[0]));
       this.firstBlock = data[0];
     });
+  }
+
+  segmentChanged(event) {
+    localStorage.setItem('dashboardSegment', JSON.stringify(event.value));
+    this.coin = event.value;
   }
 
 

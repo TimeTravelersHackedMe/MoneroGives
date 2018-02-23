@@ -30,4 +30,12 @@ export class Luz {
       }, 1);
     });
   }
+
+  static formatCurrency(value: number, format: string) {
+    if(format === 'USD') {
+      return '$' + value;
+    } else {
+      return value;
+    }
+  }
 }

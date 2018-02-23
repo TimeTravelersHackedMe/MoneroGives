@@ -13,6 +13,7 @@ import { PoolTypePipe } from './pool-type/pool-type';
 import { WhereTruePipe } from './where-true/where-true';
 import { PrettyPortTypePipe } from './pretty-port-type/pretty-port-type';
 import { HasLengthPipe } from './has-length/has-length';
+import { PrettyCurrencyPipe } from './pretty-currency/pretty-currency';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { HasLengthPipe } from './has-length/has-length';
     PoolTypePipe,
     WhereTruePipe,
     PrettyPortTypePipe,
-    HasLengthPipe
+    HasLengthPipe,
+    PrettyCurrencyPipe
     ],
     imports: [],
     exports: [
@@ -44,7 +46,8 @@ import { HasLengthPipe } from './has-length/has-length';
     PoolTypePipe,
     WhereTruePipe,
     PrettyPortTypePipe,
-    HasLengthPipe
+    HasLengthPipe,
+    PrettyCurrencyPipe
     ]
 })
 export class PipesModule { }

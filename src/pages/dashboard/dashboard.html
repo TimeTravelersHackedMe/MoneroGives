@@ -1,14 +1,23 @@
 <nav-bar [page]="page"></nav-bar>
 <ion-content>
+  <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="XMR">
+      Monero
+    </ion-segment-button>
+    <ion-segment-button value="AEON">
+      Aeon
+    </ion-segment-button>
+    <ion-segment-button value="server">
+      Another Pool
+    </ion-segment-button>
+    <ion-segment-button value="email">
+      Another Pool
+    </ion-segment-button>
+  </ion-segment>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-card color="primary">
-          <ion-card-header>Value of Monero in USD</ion-card-header>
-          <ion-card-content>
-              <currency-chart></currency-chart>
-          </ion-card-content>
-        </ion-card>
+        <currency-chart [color]="'bluegrey'" [title]="'XMR Value'" [coin]="coin" [socket]="true" [fiats]="fiats"></currency-chart>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -74,15 +83,15 @@
         </ion-card>
       </ion-col>
       <ion-col col-12 col-md-6 col-lg-12 col-xl-6>
-          <ion-card>
-            <ion-card-header>
-              Network Stats
-            </ion-card-header>
-            <ion-card-content>
-              <network-stats-table *ngIf="networkStats" [networkStats]="networkStats"></network-stats-table>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
+        <ion-card>
+          <ion-card-header>
+            Network Stats
+          </ion-card-header>
+          <ion-card-content>
+            <network-stats-table *ngIf="networkStats" [networkStats]="networkStats"></network-stats-table>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
+import { Ng2OdometerModule } from 'ng2-odometer';
 
 import { SideMenuEntryComponent } from './side-menu-entry/side-menu-entry';
 import { NavBarComponent } from './nav-bar/nav-bar';
@@ -16,6 +17,7 @@ import { AdminRightMenuComponent } from './admin-right-menu/admin-right-menu';
 import { SaveSettingsBarComponent } from './save-settings-bar/save-settings-bar';
 import { EditSettingComponent } from './edit-setting/edit-setting';
 import { CurrencyChartComponent } from './currency-chart/currency-chart';
+import { PrettyCurrencyPipe } from '../pipes/pretty-currency/pretty-currency';
 
 @NgModule({
 	declarations: [
@@ -27,14 +29,15 @@ import { CurrencyChartComponent } from './currency-chart/currency-chart';
 		NetworkStatsTableComponent,
 		CenterComponent,
 		HashOverlayComponent,
-    AdminRightMenuComponent,
-    SaveSettingsBarComponent,
-    EditSettingComponent,
-    CurrencyChartComponent
+		AdminRightMenuComponent,
+		SaveSettingsBarComponent,
+		EditSettingComponent,
+		CurrencyChartComponent
 	],
 	imports: [
 		IonicModule,
-		PipesModule
+		PipesModule,
+		Ng2OdometerModule.forRoot()
 	],
 	exports: [
 		SideMenuEntryComponent,
@@ -45,14 +48,15 @@ import { CurrencyChartComponent } from './currency-chart/currency-chart';
 		NetworkStatsTableComponent,
 		CenterComponent,
 		HashOverlayComponent,
-    AdminRightMenuComponent,
-    SaveSettingsBarComponent,
-    EditSettingComponent,
-    CurrencyChartComponent
+		AdminRightMenuComponent,
+		SaveSettingsBarComponent,
+		EditSettingComponent,
+		CurrencyChartComponent
 	],
 	providers: [
 		HashPipe,
-		DifficultyToHashPipe
+		DifficultyToHashPipe,
+		PrettyCurrencyPipe
 	]
 })
 export class ComponentsModule { }

@@ -203,6 +203,23 @@ ion-card-header {
   }
 }
 
+.card-content.card-content-md {
+  line-height: 1.32;
+}
+
+ng2-odometer * {
+  font-family: 'Montserrat' !important;
+  font-weight: 700 !important;
+}
+
+.default-hidden {
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+}
+
 .small-column {
   max-width: 111px;
 }

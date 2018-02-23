@@ -1,38 +1,45 @@
-import { Component, Input, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, AfterViewInit, OnChanges, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
+import io from 'socket.io-client';
+import { CCC } from '../../shared/ccc-streamer-utilities';
 
 import { DataProvider } from '../../providers/data/data';
+import { PrettyCurrencyPipe } from '../../pipes/pretty-currency/pretty-currency';
+import { ExchangeSocketMessage } from '../../constants/interfaces';
+import { CONFIG } from '../../constants/config';
 
 @Component({
   selector: 'currency-chart',
   templateUrl: 'currency-chart.html'
 })
-export class CurrencyChartComponent implements AfterViewInit, OnDestroy {
+export class CurrencyChartComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input('coin') coin: string = 'XMR';
-  @Input('fiats') fiats: string = 'USD';
-  @Input('hours') hours: number = 72;
+  @Input('fiats') fiats: Array<string> = ['USD'];
+  @Input('hours') hours: number = 24 * 5;
+  @Input('color') color: string = 'primary';
+  @Input('title') title: string = 'Default Currency Chart Title';
+  @Input('socket') socket: boolean = false;
   @ViewChild('chartCanvas') canvas;
-  private data: Array<object> = [];
+  private data: any = [];
+  private yAxes: any = [];
   public chart: Chart;
-  private coinHistory$: Subscription;
+  private coinHistory$: Array<Subscription> = [];
+  private socketConn: any;
+  public liveData: any = {};
+  public lastLiveData: any = {};
+  public trendingUp: any = {};
+  private socketSubscriptions: any = [];
+  public odometerConfig: any = CONFIG.odometer;
 
-  constructor(private dataProvider: DataProvider) {
-    this.coinHistory$ = this.dataProvider.hourlyCoinHistory(this.coin, this.fiats, this.hours).subscribe((data: any) => {
-      this.data = data.Data.map(item => { return { x: new Date(item.time * 1000), y: item.close } });
-      this.update();
-    });
-  }
+  constructor(private dataProvider: DataProvider, public prettyCurrency: PrettyCurrencyPipe) { }
 
   initChart() {
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
-        datasets: [{
-          data: this.data,
-          backgroundColor: 'rgba(255,255,255,0.430)'
-        }]
+        datasets: this.data
       },
       options: {
         legend: {
@@ -43,8 +50,8 @@ export class CurrencyChartComponent implements AfterViewInit, OnDestroy {
           displayColors: false,
           bodyFontStyle: 'bold',
           callbacks: {
-            label: (tooltipItem, data) => {
-              return tooltipItem.yLabel;
+            label: (tooltipItem) => {
+              return this.prettyCurrency.transform(tooltipItem.yLabel, this.fiats[tooltipItem.datasetIndex]);
             },
             title: (data) => {
               return moment(data[0].xLabel).format('dddd hA') + ' (' + moment(data[0].xLabel).fromNow() + ')';
@@ -66,34 +73,122 @@ export class CurrencyChartComponent implements AfterViewInit, OnDestroy {
               unit: 'hour'
             }
           }],
-          yAxes: [{
-            type: 'linear',
-            ticks: {
-              callback: (value) => {
-                return value;
-              },
-              fontColor: 'rgba(255,255,255,0.667)',
-            }
-          }]
+          yAxes: this.yAxes
         }
       }
     });
   }
 
-  update() {
-    if(!this.chart) {
-      this.initChart();
+  getLivePrice(coin: string, fiat: string) {
+    if (this.liveData[coin + fiat] && this.liveData[coin + fiat].PRICE) {
+      return this.liveData[coin + fiat].PRICE;
+    } else {
+      return false;
     }
-    this.chart.data.datasets[0].data = this.data;
-    this.chart.update();
   }
 
-  ngAfterViewInit() {
+  populateChart() {
+    const prettyCurrency = this.prettyCurrency;
+    for (const fiat of this.fiats) {
+    }
+  }
+
+  addSeries(fiat: string, index: number) {
+    return new Promise((resolve) => {
+      const prettyCurrency = this.prettyCurrency;
+      const sub = this.dataProvider.hourlyCoinHistory(this.coin, fiat, this.hours).subscribe((data: any) => {
+        this.yAxes[index] = {
+          id: fiat,
+          type: 'linear',
+          ticks: {
+            callback: function (value) {
+              return prettyCurrency.transform(value, this.options.id);
+            },
+            fontColor: 'rgba(255,255,255,0.667)',
+          }
+        };
+        this.data[index] = {
+          data: data.Data.map(item => { return { x: new Date(item.time * 1000), y: item.close } }),
+          yAxisID: this.fiats[index],
+          backgroundColor: 'rgba(255,255,255,0.24)',
+        };
+        resolve();
+      });
+      this.coinHistory$.push(sub);
+    });
+  }
+
+  update() {
+    let index = 0;
+    let promises = [];
+    for (const fiat of this.fiats) {
+      promises.push(this.addSeries(fiat, index));
+      index++;
+    }
+    Promise.all(promises).then(() => {
+      if (!this.chart) {
+        this.initChart();
+      } else {
+        for (var i = 0; i < this.fiats.length; i++) {
+          console.log('here');
+          this.chart.data.datasets[i] = this.data[i];
+        }
+        this.chart.update();
+      }
+    });
+    if (this.socket) {
+      if (!this.socketConn) {
+        this.socketConn = io('https://streamer.cryptocompare.com/');
+        this.socketConn.on('connect', () => {
+          console.log('Exchange socket connected.');
+        });
+        this.socketConn.on('disconnect', () => {
+          console.log('Exchange socket disconnected.');
+          this.socketConn = false;
+        });
+      } else {
+        // Doesn't appear to be working... TODO post issue on their Github
+        // Issue: https://github.com/cryptoqween/cryptoqween.github.io/issues/15
+        this.socketConn.emit('SubRemove', { subs: this.socketSubscriptions });
+      }
+      //Format: {SubscriptionId}~{ExchangeName}~{FromSymbol}~{ToSymbol}
+      //Use SubscriptionId 0 for TRADE, 2 for CURRENT and 5 for CURRENTAGG
+      //For aggregate quote updates use CCCAGG as market
+      for (const fiat of this.fiats) {
+        this.socketSubscriptions.push('5~CCCAGG~' + this.coin + '~' + fiat);
+      }
+      this.socketConn.emit('SubAdd', { subs: this.socketSubscriptions });
+      this.socketConn.on('m', (data) => {
+        console.log(data);
+        const messageType = data.substring(0, data.indexOf("~"));
+        let socketMessage: ExchangeSocketMessage = {};
+        if (messageType == CCC.STATIC.TYPE.CURRENTAGG) {
+          socketMessage = CCC.CURRENT.unpack(data);
+          const socketData = Object.assign(this.liveData[socketMessage.FROMSYMBOL + socketMessage.TOSYMBOL] || {}, socketMessage);
+          if (this.liveData[socketMessage.FROMSYMBOL + socketMessage.TOSYMBOL]) {
+            const livePrice = this.liveData[socketMessage.FROMSYMBOL + socketMessage.TOSYMBOL].PRICE;
+            if (socketData.PRICE > this.lastLiveData[socketMessage.FROMSYMBOL + socketMessage.TOSYMBOL]) {
+              this.trendingUp[socketMessage.FROMSYMBOL + socketMessage.TOSYMBOL] = true;
+            } else if (socketData.PRICE < this.lastLiveData[socketMessage.FROMSYMBOL + socketMessage.TOSYMBOL]) {
+              this.trendingUp[socketMessage.FROMSYMBOL + socketMessage.TOSYMBOL] = false;
+            }
+            this.lastLiveData[socketMessage.FROMSYMBOL + socketMessage.TOSYMBOL] = this.liveData[socketMessage.FROMSYMBOL + socketMessage.TOSYMBOL].PRICE;
+          }
+          this.liveData[socketMessage.FROMSYMBOL + socketMessage.TOSYMBOL] = socketData;
+        }
+      });
+    }
+  }
+
+  ngOnChanges() {
     this.update();
+    console.log('changes');
   }
 
   ngOnDestroy() {
-    this.coinHistory$.unsubscribe();
+    for (const sub of this.coinHistory$) {
+      sub.unsubscribe();
+    }
   }
 
 }

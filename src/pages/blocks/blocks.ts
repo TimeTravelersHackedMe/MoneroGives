@@ -25,6 +25,7 @@ export class BlocksPage implements OnDestroy, OnInit {
   public blocks: Array<Block> = localStorage.getItem('blocks') === null ? null : JSON.parse(localStorage.getItem('blocks'));
 
   constructor(private view: ViewController, private db: AngularFirestore) {
+    console.log(this.blocks);
     Luz.getPageParams(this.view.id).then(data => {
       this.page = data;
     });

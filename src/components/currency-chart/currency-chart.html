@@ -1,3 +1,19 @@
-<div style="display: block;">
-  <canvas #chartCanvas></canvas>
-</div>
+<ion-card color="{{ color }}">
+  <ion-card-header>{{ coin }} Value</ion-card-header>
+  <ion-card-content>
+    <ion-row class="multi-card-stats" *ngIf="socket">
+      <ion-col *ngFor="let fiat of fiats" class="multi-card-stat" text-center>
+        <ion-icon class="default-hidden" name="{{ trendingUp[coin + fiat] ? 'arrow-dropup' : 'arrow-dropdown' }}" [class.visible]="trendingUp[coin + fiat] === true || trendingUp[coin + fiat] === false"></ion-icon>
+        <ng-container *ngIf="fiat === 'BTC'; else notBTC">
+            <ion-icon class="bitcoin-logo" name="logo-bitcoin"></ion-icon><ng2-odometer [number]="getLivePrice(coin, fiat)" [config]="odometerConfig[fiat]"></ng2-odometer>
+        </ng-container>
+        <ng-template #notBTC>
+            {{ getLivePrice(coin, fiat) | prettyCurrency: fiat }}
+        </ng-template>
+      </ion-col>
+    </ion-row>
+    <div style="display: block;">
+      <canvas #chartCanvas></canvas>
+    </div>
+  </ion-card-content>
+</ion-card>

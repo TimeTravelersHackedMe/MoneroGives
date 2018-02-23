@@ -21,5 +21,11 @@ export const CONFIG = {
             email: ['general', 'email']
         }
     },
-    exchange: 'https://monero.gives/exchange/'
+    exchange: 'https://monero.gives/exchange/',
+    odometer: {
+        BTC: {
+            format: '(,ddd).dddddd'
+        }
+
+    }
 }
