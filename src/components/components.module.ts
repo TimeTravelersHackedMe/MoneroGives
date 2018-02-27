@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
-import { Ng2OdometerModule } from 'ng2-odometer';
 
 import { SideMenuEntryComponent } from './side-menu-entry/side-menu-entry';
 import { NavBarComponent } from './nav-bar/nav-bar';
@@ -36,8 +35,7 @@ import { PrettyCurrencyPipe } from '../pipes/pretty-currency/pretty-currency';
 	],
 	imports: [
 		IonicModule,
-		PipesModule,
-		Ng2OdometerModule.forRoot()
+		PipesModule
 	],
 	exports: [
 		SideMenuEntryComponent,

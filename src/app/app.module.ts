@@ -9,7 +9,6 @@ import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore
 import { Chart } from 'chart.js';
 import * as moment from 'moment';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Ng2OdometerModule } from 'ng2-odometer';
 
 import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
@@ -45,8 +44,7 @@ const firebaseConfig = {
     }),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
-    HttpClientModule,
-    Ng2OdometerModule.forRoot()
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

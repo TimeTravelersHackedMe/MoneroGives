@@ -1,7 +1,9 @@
 currency-chart {
+    max-height: 400px;
     .multi-card-stat {
-        font-size: 24px;
+        font-size: 26px;
         font-weight: 700;
+        height: 45px;
     }
     ion-icon {
         transition: all 0.333s ease-in-out;

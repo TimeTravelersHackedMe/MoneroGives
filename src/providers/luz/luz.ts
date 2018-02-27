@@ -15,6 +15,7 @@ export class Luz {
       setTimeout(() => {
         if(typeof slug === 'undefined') slug = window.location.hash.substring(2);
         if(slug && slug.substring(0, 5) === 'ports') slug = 'ports';
+        if(slug && slug.substring(0, 9) === 'dashboard') slug = 'dashboard';
         const pageList: Array<PageParams> = admin ? PAGES.ADMIN_LIST : PAGES.LIST;
         for (const page of pageList) {
           if (page.slug === slug) {

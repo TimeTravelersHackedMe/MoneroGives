@@ -8,7 +8,7 @@ import { PageParams, Ports } from '../../constants/interfaces';
 
 @IonicPage({
   name: 'ports',
-  segment: 'ports/:subpage'
+  segment: 'ports'
 })
 @Component({
   selector: 'page-ports',
@@ -23,7 +23,6 @@ export class PortsPage implements OnDestroy {
   public hasData: boolean = false;
 
   constructor(private db: AngularFirestore, private navCtrl: NavController, private nav: NavParams, private view: ViewController) {
-    this.segment = this.nav.data.subpage;
     Luz.getPageParams(this.view.id).then(data => {
       this.page = data;
     });
@@ -36,7 +35,6 @@ export class PortsPage implements OnDestroy {
 
   segmentChanged(event) {
     this.hasData = false;
-    history.pushState(null, null, '/#/ports/' + event.value);
     localStorage.setItem('portSegment', JSON.stringify(event.value));
     localStorage.removeItem('ports');
     this.ports$.unsubscribe();

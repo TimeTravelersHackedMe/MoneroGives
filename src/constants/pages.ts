@@ -18,7 +18,6 @@ export const PAGES = {
         {
             title: 'Ports',
             slug: 'ports',
-            subpage: 'global',
             icon: 'git-pull-request'
         },
         {

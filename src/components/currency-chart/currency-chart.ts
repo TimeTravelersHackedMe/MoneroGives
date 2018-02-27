@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
@@ -14,7 +14,7 @@ import { CONFIG } from '../../constants/config';
   selector: 'currency-chart',
   templateUrl: 'currency-chart.html'
 })
-export class CurrencyChartComponent implements OnChanges, OnDestroy {
+export class CurrencyChartComponent implements OnChanges, OnDestroy, OnInit {
   @Input('coin') coin: string = 'XMR';
   @Input('fiats') fiats: Array<string> = ['USD'];
   @Input('hours') hours: number = 24 * 5;
@@ -22,8 +22,8 @@ export class CurrencyChartComponent implements OnChanges, OnDestroy {
   @Input('title') title: string = 'Default Currency Chart Title';
   @Input('socket') socket: boolean = false;
   @ViewChild('chartCanvas') canvas;
-  private data: any = [];
-  private yAxes: any = [];
+  private data: any = localStorage.getItem('currencyChartData') === null ? [] : JSON.parse(localStorage.getItem('currencyChartData'));;
+  private yAxes: any = localStorage.getItem('yAxes') === null ? [] : JSON.parse(localStorage.getItem('yAxes'));
   public chart: Chart;
   private coinHistory$: Array<Subscription> = [];
   private socketConn: any;
@@ -31,9 +31,8 @@ export class CurrencyChartComponent implements OnChanges, OnDestroy {
   public lastLiveData: any = {};
   public trendingUp: any = {};
   private socketSubscriptions: any = [];
-  public odometerConfig: any = CONFIG.odometer;
 
-  constructor(private dataProvider: DataProvider, public prettyCurrency: PrettyCurrencyPipe) { }
+  constructor(private dataProvider: DataProvider, public prettyCurrency: PrettyCurrencyPipe) {}
 
   initChart() {
     this.chart = new Chart(this.canvas.nativeElement, {
@@ -118,34 +117,51 @@ export class CurrencyChartComponent implements OnChanges, OnDestroy {
     });
   }
 
-  update() {
-    let index = 0;
-    let promises = [];
-    for (const fiat of this.fiats) {
-      promises.push(this.addSeries(fiat, index));
-      index++;
-    }
-    Promise.all(promises).then(() => {
-      if (!this.chart) {
-        this.initChart();
-      } else {
-        for (var i = 0; i < this.fiats.length; i++) {
-          console.log('here');
-          this.chart.data.datasets[i] = this.data[i];
-        }
-        this.chart.update();
+  renderChart() {
+    if (this.chart && this.chart.animating) {
+      setTimeout(() => {
+        this.renderChart();
+      }, 50);
+    } else {
+      let index = 0;
+      let promises = [];
+      for (const fiat of this.fiats) {
+        promises.push(this.addSeries(fiat, index));
+        index++;
       }
+      Promise.all(promises).then(() => {
+        localStorage.setItem('currencyChartData', JSON.stringify(this.data));
+        localStorage.setItem('yAxes', JSON.stringify(this.yAxes));
+        if (!this.chart) {
+          this.initChart();
+        } else {
+          for (var i = 0; i < this.fiats.length; i++) {
+            this.chart.data.datasets[i] = this.data[i];
+          }
+          this.chart.update({
+            duration: 333
+          });
+        }
+      });
+    }
+  }
+
+  startSockets() {
+    this.socketConn = io('https://streamer.cryptocompare.com/');
+    this.socketConn.on('connect', () => {
+      console.log('Exchange socket connected.');
     });
+    this.socketConn.on('disconnect', () => {
+      console.log('Exchange socket disconnected.');
+      this.socketConn = false;
+    });
+  }
+
+  update() {
+    this.renderChart();
     if (this.socket) {
       if (!this.socketConn) {
-        this.socketConn = io('https://streamer.cryptocompare.com/');
-        this.socketConn.on('connect', () => {
-          console.log('Exchange socket connected.');
-        });
-        this.socketConn.on('disconnect', () => {
-          console.log('Exchange socket disconnected.');
-          this.socketConn = false;
-        });
+        this.startSockets();
       } else {
         // Doesn't appear to be working... TODO post issue on their Github
         // Issue: https://github.com/cryptoqween/cryptoqween.github.io/issues/15
@@ -159,7 +175,6 @@ export class CurrencyChartComponent implements OnChanges, OnDestroy {
       }
       this.socketConn.emit('SubAdd', { subs: this.socketSubscriptions });
       this.socketConn.on('m', (data) => {
-        console.log(data);
         const messageType = data.substring(0, data.indexOf("~"));
         let socketMessage: ExchangeSocketMessage = {};
         if (messageType == CCC.STATIC.TYPE.CURRENTAGG) {
@@ -180,9 +195,14 @@ export class CurrencyChartComponent implements OnChanges, OnDestroy {
     }
   }
 
+  ngOnInit() {
+    if(this.data.length > 0 && this.yAxes.length > 0) {
+      this.initChart();
+    }
+  }
+
   ngOnChanges() {
     this.update();
-    console.log('changes');
   }
 
   ngOnDestroy() {
