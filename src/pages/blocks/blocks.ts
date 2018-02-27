@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Luz } from '../../providers/luz/luz';
 import { Block, PageParams } from '../../constants/interfaces';
+import { CONFIG } from '../../constants/config';
 
 @IonicPage({
   name: 'blocks',
@@ -23,6 +24,9 @@ export class BlocksPage implements OnDestroy, OnInit {
   private blocksCollection: AngularFirestoreCollection<Block>;
   private blocks$: Subscription;
   public blocks: Array<Block> = localStorage.getItem('blocks') === null ? null : JSON.parse(localStorage.getItem('blocks'));
+  public coins: Array<string> = CONFIG.coins;
+  private segment: string = localStorage.getItem('segment') === null ? CONFIG.coins[0] : JSON.parse(localStorage.getItem('segment'));
+
 
   constructor(private view: ViewController, private db: AngularFirestore) {
     console.log(this.blocks);
@@ -34,6 +38,10 @@ export class BlocksPage implements OnDestroy, OnInit {
       localStorage.setItem('blocks', JSON.stringify(res));
       this.blocks = res;
     });
+  }
+
+  segmentChanged(event) {
+    localStorage.setItem('segment', JSON.stringify(event.value));
   }
 
   handleHashOverlay() {

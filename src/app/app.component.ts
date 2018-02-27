@@ -36,8 +36,8 @@ export class MyApp implements OnInit {
   }
 
   openPage(page) {
-    if(page.subpage) {
-      this.nav.setRoot(page.slug, {subpage: page.subpage});
+    if (page.subpage) {
+      this.nav.setRoot(page.slug, { subpage: page.subpage });
     } else {
       this.nav.setRoot(page.slug);
     }
@@ -46,7 +46,7 @@ export class MyApp implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       Luz.nav = this.nav;
-    },1);
+    }, 1);
   }
 }
 

@@ -33,9 +33,9 @@ export class DashboardPage implements OnDestroy {
   public poolHistory;
   public firstBlock: Block = localStorage.getItem('firstBlock') === null ? null : JSON.parse(localStorage.getItem('firstBlock'));
   public page: PageParams = {slug: '', title: '', icon: ''};
-  private segment: string = localStorage.getItem('dashboardSegment') === null ? 'monero' : JSON.parse(localStorage.getItem('dashboardSegment'));
+  private segment: string = localStorage.getItem('segment') === null ? CONFIG.coins[0] : JSON.parse(localStorage.getItem('segment'));
   private fiats: Array<string> = ['USD', 'BTC', 'EUR'];
-  private coin: string = 'XMR';
+  public coins: Array<string> = CONFIG.coins;
 
   constructor(private view: ViewController, private db: AngularFirestore) {
     Luz.getPageParams(this.view.id).then(data => {
@@ -56,7 +56,7 @@ export class DashboardPage implements OnDestroy {
       localStorage.setItem('poolConfigs', JSON.stringify(data));
       this.poolConfigs = data;
     });
-    this.networkHistoryCollection = this.db.collection('network/stats/history', ref => ref.where('historyCount', '==', 50).where('updateTime', '>', new Date().getTime() - CONFIG.networkStats.range));
+    this.networkHistoryCollection = this.db.collection('network/stats/history', ref => ref.where('historyCount', '==', 1).where('updateTime', '>', new Date().getTime() - CONFIG.networkStats.range));
     this.networkHistory$ = this.networkHistoryCollection.valueChanges().subscribe(data => {
       localStorage.setItem('networkHistory', JSON.stringify(data));
       this.networkHistory = data;
@@ -64,7 +64,6 @@ export class DashboardPage implements OnDestroy {
     this.poolHistoryCollection = this.db.collection('pool/stats/poolStatsHistory', ref => ref.where('historyCount', '==', 1).where('updateTime', '>', new Date().getTime() - CONFIG.poolStats.range));
     this.poolHistory$ = this.poolHistoryCollection.valueChanges().subscribe(data => {
       localStorage.setItem('poolHistory', JSON.stringify(data));
-      console.log(data);
       this.poolHistory = data;
     });
     this.db.collection('blocks', ref => ref.orderBy('ts', 'desc').limit(1)).valueChanges().subscribe(data => {
@@ -74,10 +73,8 @@ export class DashboardPage implements OnDestroy {
   }
 
   segmentChanged(event) {
-    localStorage.setItem('dashboardSegment', JSON.stringify(event.value));
-    this.coin = event.value;
+    localStorage.setItem('segment', JSON.stringify(event.value));
   }
-
 
   ngOnDestroy() {
     this.poolConfigs$.unsubscribe();

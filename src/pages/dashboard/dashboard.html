@@ -1,23 +1,14 @@
 <nav-bar [page]="page"></nav-bar>
 <ion-content>
   <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="XMR">
-      Monero
-    </ion-segment-button>
-    <ion-segment-button value="AEON">
-      Aeon
-    </ion-segment-button>
-    <ion-segment-button value="ETN">
-      Electroneum
-    </ion-segment-button>
-    <ion-segment-button value="email">
-      Another Pool
+    <ion-segment-button *ngFor="let coin of coins" value="{{ coin }}">
+      {{ coin | fullCurrencyName }}
     </ion-segment-button>
   </ion-segment>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <currency-chart [color]="'bluegrey'" [title]="'XMR Value'" [coin]="coin" [socket]="true" [fiats]="fiats"></currency-chart>
+        <currency-chart [color]="'bluegrey'" [title]="'XMR Value'" [coin]="segment" [socket]="true" [fiats]="fiats"></currency-chart>
       </ion-col>
     </ion-row>
     <ion-row>

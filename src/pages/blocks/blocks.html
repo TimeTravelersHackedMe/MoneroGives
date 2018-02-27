@@ -1,6 +1,11 @@
 <nav-bar [page]="page"></nav-bar>
-<ion-content padding>
-    <ion-grid #table [hidden]="!blocks">
+<ion-content>
+    <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChanged($event)">
+        <ion-segment-button *ngFor="let coin of coins" value="{{ coin }}">
+            {{ coin | fullCurrencyName }}
+        </ion-segment-button>
+    </ion-segment>
+    <ion-grid #table [hidden]="!blocks" padding>
         <ion-row>
             <ion-col style="max-width:63px;">
                 <center class="full-width" text-center>Valid</center>

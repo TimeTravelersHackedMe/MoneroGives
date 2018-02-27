@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnChanges, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
@@ -14,7 +14,7 @@ import { CONFIG } from '../../constants/config';
   selector: 'currency-chart',
   templateUrl: 'currency-chart.html'
 })
-export class CurrencyChartComponent implements OnChanges, OnDestroy, OnInit {
+export class CurrencyChartComponent implements OnChanges, OnDestroy {
   @Input('coin') coin: string = 'XMR';
   @Input('fiats') fiats: Array<string> = ['USD'];
   @Input('hours') hours: number = 24 * 5;
@@ -31,6 +31,7 @@ export class CurrencyChartComponent implements OnChanges, OnDestroy, OnInit {
   public lastLiveData: any = {};
   public trendingUp: any = {};
   private socketSubscriptions: any = [];
+  private renderChartDelay: any;
 
   constructor(private dataProvider: DataProvider, public prettyCurrency: PrettyCurrencyPipe) {}
 
@@ -118,10 +119,10 @@ export class CurrencyChartComponent implements OnChanges, OnDestroy, OnInit {
   }
 
   renderChart() {
-    if (this.chart && this.chart.animating) {
-      setTimeout(() => {
+    if (typeof this.chart !== 'undefined' && this.chart.animating) {
+      this.renderChartDelay = setTimeout(() => {
         this.renderChart();
-      }, 50);
+      }, 100);
     } else {
       let index = 0;
       let promises = [];
@@ -133,6 +134,7 @@ export class CurrencyChartComponent implements OnChanges, OnDestroy, OnInit {
         localStorage.setItem('currencyChartData', JSON.stringify(this.data));
         localStorage.setItem('yAxes', JSON.stringify(this.yAxes));
         if (!this.chart) {
+          console.log('init');
           this.initChart();
         } else {
           for (var i = 0; i < this.fiats.length; i++) {
@@ -195,17 +197,14 @@ export class CurrencyChartComponent implements OnChanges, OnDestroy, OnInit {
     }
   }
 
-  ngOnInit() {
-    if(this.data.length > 0 && this.yAxes.length > 0) {
-      this.initChart();
-    }
-  }
-
   ngOnChanges() {
     this.update();
   }
 
   ngOnDestroy() {
+    if (typeof this.chart !== 'undefined') {
+      this.chart.destroy();
+    }
     for (const sub of this.coinHistory$) {
       sub.unsubscribe();
     }

@@ -4,8 +4,8 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Subscription } from 'rxjs/Subscription';
 
 import { Luz } from '../../providers/luz/luz';
-import { Payment } from '../../constants/interfaces';
-import { PageParams } from '../../constants/interfaces';
+import { PageParams, Payment } from '../../constants/interfaces';
+import { CONFIG } from '../../constants/config';
 
 @IonicPage({
   name: 'payments',
@@ -24,7 +24,8 @@ export class PaymentsPage {
   private paymentsCollection: AngularFirestoreCollection<Payment>;
   private payments$: Subscription;
   public payments: Array<Payment> = localStorage.getItem('payments') === null ? null : JSON.parse(localStorage.getItem('payments'));
-
+  public coins: Array<string> = CONFIG.coins;
+  private segment: string = localStorage.getItem('segment') === null ? CONFIG.coins[0] : JSON.parse(localStorage.getItem('segment'));
 
   constructor(private db: AngularFirestore, private view: ViewController) {
     Luz.getPageParams(this.view.id).then(data => {
@@ -35,6 +36,10 @@ export class PaymentsPage {
       localStorage.setItem('payments', JSON.stringify(res));
       this.payments = res;
     });
+  }
+
+  segmentChanged(event) {
+    localStorage.setItem('segment', JSON.stringify(event.value));
   }
 
   handleHashOverlay() {

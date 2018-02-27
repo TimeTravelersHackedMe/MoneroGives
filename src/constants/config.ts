@@ -1,5 +1,6 @@
 const API_URL = 'https://monero.gives/api';
 export const CONFIG = {
+    coins: ['AEON', 'ETN', 'SUMO', 'XMR'],
     networkStats: {
         range: 1000 * 60 * 60 * 48
     },
