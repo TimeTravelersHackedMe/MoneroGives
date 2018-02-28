@@ -6,10 +6,12 @@
         <ng-container *ngIf="getLivePrice(coin, fiat)">
           <ion-icon class="default-hidden" name="{{ trendingUp[coin + fiat] ? 'arrow-dropup' : 'arrow-dropdown' }}" [class.visible]="trendingUp[coin + fiat] === true || trendingUp[coin + fiat] === false"></ion-icon>
           <ng-container *ngIf="fiat === 'BTC'; else notBTC">
-            <ion-icon class="bitcoin-logo" name="logo-bitcoin"></ion-icon>{{ getLivePrice(coin, fiat) }}
+            <ion-icon class="bitcoin-logo" name="logo-bitcoin"></ion-icon><div class="hidden">{{ getLivePrice(coin, fiat) }}</div>
+            <div id="odometer-{{ coin }}-{{ fiat }}"></div>
           </ng-container>
           <ng-template #notBTC>
-            {{ getLivePrice(coin, fiat) | prettyCurrency: fiat }}
+            <div class="hidden">{{ getLivePrice(coin, fiat) | prettyCurrency: fiat }}</div>
+            <div id="odometer-{{ coin }}-{{ fiat }}"></div>
           </ng-template>
         </ng-container>
       </ion-col>

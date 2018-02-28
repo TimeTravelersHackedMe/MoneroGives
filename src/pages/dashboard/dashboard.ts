@@ -30,7 +30,7 @@ export class DashboardPage implements OnDestroy {
   public networkHistory: Array<NetworkStats> = localStorage.getItem('networkHistory') === null ? null : JSON.parse(localStorage.getItem('networkHistory'));
   private poolHistoryCollection: AngularFirestoreCollection<any>;
   private poolHistory$: Subscription;
-  public poolHistory;
+  public poolHistory: Array<NetworkStats> = localStorage.getItem('poolHistory') === null ? null : JSON.parse(localStorage.getItem('poolHistory'));
   public firstBlock: Block = localStorage.getItem('firstBlock') === null ? null : JSON.parse(localStorage.getItem('firstBlock'));
   public page: PageParams = {slug: '', title: '', icon: ''};
   private segment: string = localStorage.getItem('segment') === null ? CONFIG.coins[0] : JSON.parse(localStorage.getItem('segment'));
@@ -41,47 +41,57 @@ export class DashboardPage implements OnDestroy {
     Luz.getPageParams(this.view.id).then(data => {
       this.page = data;
     });
-    this.poolStatsDoc = this.db.doc<PoolStats>('pool/stats');
+    this.dataInit();
+  }
+
+  dataInit() {
+    this.poolStatsDoc = this.db.doc<PoolStats>('stats/' + this.segment.toLowerCase());
     this.poolStats$ = this.poolStatsDoc.valueChanges().subscribe(data => {
       localStorage.setItem('poolStats', JSON.stringify(data));
       this.poolStats = data;
     });
-    this.networkStatsDoc = this.db.doc<NetworkStats>('network/stats');
+    this.networkStatsDoc = this.db.doc<NetworkStats>('network/' + this.segment.toLowerCase());
     this.networkStats$ = this.networkStatsDoc.valueChanges().subscribe(data => {
       localStorage.setItem('networkStats', JSON.stringify(data));
       this.networkStats = data;
     });
-    this.poolConfigsDoc = this.db.doc<PoolConfigs>('pool/config');
+    this.poolConfigsDoc = this.db.doc<PoolConfigs>('configs/' + this.segment.toLowerCase());
     this.poolConfigs$ = this.poolConfigsDoc.valueChanges().subscribe(data => {
       localStorage.setItem('poolConfigs', JSON.stringify(data));
       this.poolConfigs = data;
     });
-    this.networkHistoryCollection = this.db.collection('network/stats/history', ref => ref.where('historyCount', '==', 1).where('updateTime', '>', new Date().getTime() - CONFIG.networkStats.range));
+    this.networkHistoryCollection = this.db.collection('network/' + this.segment.toLowerCase() + '/networkHistory', ref => ref.where('updateTime', '>', new Date().getTime() - CONFIG.networkStats.range));
     this.networkHistory$ = this.networkHistoryCollection.valueChanges().subscribe(data => {
       localStorage.setItem('networkHistory', JSON.stringify(data));
       this.networkHistory = data;
     });
-    this.poolHistoryCollection = this.db.collection('pool/stats/poolStatsHistory', ref => ref.where('historyCount', '==', 1).where('updateTime', '>', new Date().getTime() - CONFIG.poolStats.range));
+    this.poolHistoryCollection = this.db.collection('stats/' + this.segment.toLowerCase() + '/poolStatsHistory', ref => ref.where('updateTime', '>', new Date().getTime() - CONFIG.poolStats.range));
     this.poolHistory$ = this.poolHistoryCollection.valueChanges().subscribe(data => {
       localStorage.setItem('poolHistory', JSON.stringify(data));
       this.poolHistory = data;
     });
-    this.db.collection('blocks', ref => ref.orderBy('ts', 'desc').limit(1)).valueChanges().subscribe(data => {
+    this.db.collection('blocks/' + this.segment.toLowerCase() + '/blockList', ref => ref.orderBy('ts', 'desc').limit(1)).valueChanges().subscribe(data => {
       localStorage.setItem('firstBlock', JSON.stringify(data[0]));
       this.firstBlock = data[0];
     });
   }
 
-  segmentChanged(event) {
-    localStorage.setItem('segment', JSON.stringify(event.value));
-  }
-
-  ngOnDestroy() {
+  unsubscribe() {
     this.poolConfigs$.unsubscribe();
     this.poolStats$.unsubscribe();
     this.networkStats$.unsubscribe();
     this.networkHistory$.unsubscribe();
     this.poolHistory$.unsubscribe();
+  }
+
+  segmentChanged(event) {
+    localStorage.setItem('segment', JSON.stringify(event.value));
+    this.unsubscribe();
+    this.dataInit();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe();
   }
 
 }

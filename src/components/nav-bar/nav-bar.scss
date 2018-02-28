@@ -26,5 +26,10 @@ nav-bar {
     .toolbar-title {
         color: $title-color;
     }
+
+    .sign-in {
+        right: 30px;
+        position: absolute;
+    }
 }
 

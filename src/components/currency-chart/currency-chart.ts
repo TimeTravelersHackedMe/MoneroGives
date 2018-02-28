@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 import io from 'socket.io-client';
 import { CCC } from '../../shared/ccc-streamer-utilities';
+import bounty from 'bounty';
 
 import { DataProvider } from '../../providers/data/data';
 import { PrettyCurrencyPipe } from '../../pipes/pretty-currency/pretty-currency';
@@ -33,7 +34,8 @@ export class CurrencyChartComponent implements OnChanges, OnDestroy {
   private socketSubscriptions: any = [];
   private renderChartDelay: any;
 
-  constructor(private dataProvider: DataProvider, public prettyCurrency: PrettyCurrencyPipe) {}
+  constructor(private dataProvider: DataProvider, public prettyCurrency: PrettyCurrencyPipe) {
+  }
 
   initChart() {
     this.chart = new Chart(this.canvas.nativeElement, {
@@ -81,6 +83,9 @@ export class CurrencyChartComponent implements OnChanges, OnDestroy {
 
   getLivePrice(coin: string, fiat: string) {
     if (this.liveData[coin + fiat] && this.liveData[coin + fiat].PRICE) {
+      if(this.lastLiveData[coin + fiat] !== this.liveData[coin + fiat].PRICE) {
+        bounty({ el: '#odometer-' + coin + '-' + fiat, value: this.liveData[coin + fiat].PRICE });
+      }
       return this.liveData[coin + fiat].PRICE;
     } else {
       return false;

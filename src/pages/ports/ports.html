@@ -1,17 +1,17 @@
 <nav-bar [page]="page"></nav-bar>
 <ion-content>
     <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChanged($event)">
-        <ion-segment-button value="global">
-            Global
-        </ion-segment-button>
-        <ion-segment-button value="pplns">
-            PPLNS
-        </ion-segment-button>
-        <ion-segment-button value="solo">
-            Solo
+        <ion-segment-button *ngFor="let coin of coins" value="{{ coin }}">
+            {{ coin | fullCurrencyName }}
         </ion-segment-button>
     </ion-segment>
-    <ion-grid padding *ngIf="ports | hasLength; else noPorts">
+    <ion-grid padding *ngIf="ports | hasLength">
+        <ion-row>
+            <ion-col>
+                <h5 ion-text color="dark">Global</h5>
+                <div class="underline"></div>
+            </ion-col>
+        </ion-row>
         <ion-row>
             <ion-col class="medium-column">
                 <center>Server</center>
@@ -34,7 +34,7 @@
             <ion-col>
                 <center>Description</center>
             </ion-col>
-            <ion-col *ngIf="segment === 'global'" class="small-column">
+            <ion-col class="small-column">
                 <center>Type</center>
             </ion-col>
         </ion-row>
@@ -60,11 +60,119 @@
             <ion-col>
                 <center>{{ port.description }}</center>
             </ion-col>
-            <ion-col *ngIf="segment === 'global'" class="small-column">
+            <ion-col class="small-column">
                 <center>{{ port.poolType | prettyPortType }}</center>
             </ion-col>
         </ion-row>
     </ion-grid>
+    <ion-grid padding *ngIf="pplnsPorts | hasLength">
+            <ion-row>
+                <ion-col>
+                    <h5 ion-text color="dark">PPLNS</h5>
+                    <div class="underline"></div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="medium-column">
+                    <center>Server</center>
+                </ion-col>
+                <ion-col class="small-column">
+                    <center>Port</center>
+                </ion-col>
+                <ion-col class="small-column">
+                    <center>Difficulty</center>
+                </ion-col>
+                <ion-col class="small-column">
+                    <center>Miners</center>
+                </ion-col>
+                <ion-col class="medium-column">
+                    <center>Current Block</center>
+                </ion-col>
+                <ion-col class="medium-column">
+                    <center>Current Block Time</center>
+                </ion-col>
+                <ion-col>
+                    <center>Description</center>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let port of pplnsPorts">
+                <ion-col class="medium-column">
+                    <center>{{ port.hostname }}</center>
+                </ion-col>
+                <ion-col class="small-column">
+                    <center>{{ port.port }}</center>
+                </ion-col>
+                <ion-col class="small-column">
+                    <center>{{ port.difficulty }}</center>
+                </ion-col>
+                <ion-col class="small-column">
+                    <center>{{ port.miners }}</center>
+                </ion-col>
+                <ion-col class="medium-column">
+                    <center>{{ port.blockId }}</center>
+                </ion-col>
+                <ion-col class="medium-column">
+                    <center>{{ port.blockIdTime * 1000 | fromNow }}</center>
+                </ion-col>
+                <ion-col>
+                    <center>{{ port.description }}</center>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-grid padding *ngIf="soloPorts | hasLength">
+                <ion-row>
+                    <ion-col>
+                        <h5 ion-text color="dark">Solo</h5>
+                        <div class="underline"></div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col class="medium-column">
+                        <center>Server</center>
+                    </ion-col>
+                    <ion-col class="small-column">
+                        <center>Port</center>
+                    </ion-col>
+                    <ion-col class="small-column">
+                        <center>Difficulty</center>
+                    </ion-col>
+                    <ion-col class="small-column">
+                        <center>Miners</center>
+                    </ion-col>
+                    <ion-col class="medium-column">
+                        <center>Current Block</center>
+                    </ion-col>
+                    <ion-col class="medium-column">
+                        <center>Current Block Time</center>
+                    </ion-col>
+                    <ion-col>
+                        <center>Description</center>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let port of pplnsPorts">
+                    <ion-col class="medium-column">
+                        <center>{{ port.hostname }}</center>
+                    </ion-col>
+                    <ion-col class="small-column">
+                        <center>{{ port.port }}</center>
+                    </ion-col>
+                    <ion-col class="small-column">
+                        <center>{{ port.difficulty }}</center>
+                    </ion-col>
+                    <ion-col class="small-column">
+                        <center>{{ port.miners }}</center>
+                    </ion-col>
+                    <ion-col class="medium-column">
+                        <center>{{ port.blockId }}</center>
+                    </ion-col>
+                    <ion-col class="medium-column">
+                        <center>{{ port.blockIdTime * 1000 | fromNow }}</center>
+                    </ion-col>
+                    <ion-col>
+                        <center>{{ port.description }}</center>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
     <!--<h2>4 Mobile</h2>
     <ion-row>
         <ion-col *ngFor="let port of ports" col-lg-4 col-md-6 col-sm-6 col-xs-12>

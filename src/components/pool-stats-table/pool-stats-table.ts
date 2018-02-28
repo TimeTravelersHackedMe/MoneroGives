@@ -15,7 +15,7 @@ export class PoolStatsTableComponent {
   public overlayMaxWidth: number;
   public poolType: string = 'PPLNS';
 
-  constructor() {}
+  constructor() { }
 
   handleHashOverlay() {
     this.hashColumnWidth = this.hashColumn.nativeElement.clientWidth;
@@ -26,7 +26,7 @@ export class PoolStatsTableComponent {
   onResize(event) {
     this.handleHashOverlay();
   }
-  
+
   ngOnInit() {
     this.handleHashOverlay();
   }

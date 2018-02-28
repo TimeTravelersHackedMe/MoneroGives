@@ -11,7 +11,7 @@
         <currency-chart [color]="'bluegrey'" [title]="'XMR Value'" [coin]="segment" [socket]="true" [fiats]="fiats"></currency-chart>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="networkStats && poolStats">
       <ion-col col-12 col-sm-6 col-lg-6 col-xxl-4 col-xxxl-3>
         <ion-card color="primary">
           <ion-card-header>

@@ -33,7 +33,11 @@ export class BlocksPage implements OnDestroy, OnInit {
     Luz.getPageParams(this.view.id).then(data => {
       this.page = data;
     });
-    this.blocksCollection = this.db.collection('blocks', ref => ref.orderBy('ts').limit(30));
+    this.dataInit();
+  }
+
+  dataInit() {
+    this.blocksCollection = this.db.collection('blocks/' + this.segment.toLowerCase() + '/blockList', ref => ref.orderBy('ts').limit(30));
     this.blocks$ = this.blocksCollection.valueChanges().subscribe(res => {
       localStorage.setItem('blocks', JSON.stringify(res));
       this.blocks = res;
@@ -42,6 +46,8 @@ export class BlocksPage implements OnDestroy, OnInit {
 
   segmentChanged(event) {
     localStorage.setItem('segment', JSON.stringify(event.value));
+    this.blocks$.unsubscribe();
+    this.dataInit();
   }
 
   handleHashOverlay() {

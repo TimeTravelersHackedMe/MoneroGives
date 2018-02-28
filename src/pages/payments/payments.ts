@@ -31,7 +31,11 @@ export class PaymentsPage {
     Luz.getPageParams(this.view.id).then(data => {
       this.page = data;
     });
-    this.paymentsCollection = this.db.collection('payments', ref => ref.orderBy('ts').limit(30));
+    this.dataInit();
+  }
+
+  dataInit() {
+    this.paymentsCollection = this.db.collection('payments/' + this.segment.toLowerCase() + '/paymentList', ref => ref.orderBy('ts').limit(30));
     this.payments$ = this.paymentsCollection.valueChanges().subscribe(res => {
       localStorage.setItem('payments', JSON.stringify(res));
       this.payments = res;
@@ -40,6 +44,8 @@ export class PaymentsPage {
 
   segmentChanged(event) {
     localStorage.setItem('segment', JSON.stringify(event.value));
+    this.payments$.unsubscribe();
+    this.dataInit();
   }
 
   handleHashOverlay() {

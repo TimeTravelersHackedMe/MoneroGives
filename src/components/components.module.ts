@@ -17,6 +17,7 @@ import { SaveSettingsBarComponent } from './save-settings-bar/save-settings-bar'
 import { EditSettingComponent } from './edit-setting/edit-setting';
 import { CurrencyChartComponent } from './currency-chart/currency-chart';
 import { PrettyCurrencyPipe } from '../pipes/pretty-currency/pretty-currency';
+import { LoginModalComponent } from './login-modal/login-modal';
 
 @NgModule({
 	declarations: [
@@ -31,7 +32,8 @@ import { PrettyCurrencyPipe } from '../pipes/pretty-currency/pretty-currency';
 		AdminRightMenuComponent,
 		SaveSettingsBarComponent,
 		EditSettingComponent,
-		CurrencyChartComponent
+		CurrencyChartComponent,
+    LoginModalComponent
 	],
 	imports: [
 		IonicModule,
@@ -49,7 +51,8 @@ import { PrettyCurrencyPipe } from '../pipes/pretty-currency/pretty-currency';
 		AdminRightMenuComponent,
 		SaveSettingsBarComponent,
 		EditSettingComponent,
-		CurrencyChartComponent
+		CurrencyChartComponent,
+    LoginModalComponent
 	],
 	providers: [
 		HashPipe,
